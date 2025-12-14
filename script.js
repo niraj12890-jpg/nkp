@@ -149,12 +149,36 @@ document.addEventListener("keydown", function(e){
     }
 });
 
+// ---------- WhatsApp Notification Logic after Registration (Global Function) ----------
+function sendRegistrationWhatsapp(data) {
+    // Note: Workshop_Interest is the correct name from the form (not Workshop_Registered)
+    const workshopName = data.Workshop_Interest || 'N/A'; 
+    const utrId = data.UTR_ID || 'N/A';
+    const userName = data.Name || 'A user';
+    const userPhone = data.Phone || 'N/A';
+    
+    const message = encodeURIComponent(
+        `✅ *New Registration Alert! (Website)*\n\n` +
+        `👤 *Name:* ${userName}\n` +
+        `📞 *Phone:* ${userPhone}\n` +
+        `📧 *Email:* ${data.Email || 'N/A'}\n` +
+        `📚 *Workshop:* ${workshopName}\n` +
+        `💳 *UTR/Transaction ID:* ${utrId}\n\n` +
+        `Status: Waiting for verification.`
+    );
+
+    // यह सीधे आपको (NOVA ACADEMY) को नोटिफिकेशन भेजेगा
+    const whatsappUrl = `https://wa.me/919598183089?text=${message}`;
+    
+    // नए टैब में WhatsApp खोलें
+    window.open(whatsappUrl, '_blank');
+}
+
 
 // ---------- DOMContentLoaded: Form Submission Logic, Counters & Lightbox ----------
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lightbox/Gallery Modal Logic ---
-    // Note: The modal is part of Bootstrap, this JS links the image source
     const imageModal = document.getElementById('imageModal');
     if (imageModal) {
         imageModal.addEventListener('show.bs.modal', event => {
@@ -234,7 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const formData = new FormData(this);
                 const data = {};
                 formData.forEach((value, key) => (data[key] = value));
-
+                
+                // IMPORTANT: Ensure the form data sent contains the correct key for workshop name
+                // If using Workshop_Registered in HTML (though we fixed it to Workshop_Interest),
+                // map it here before sending if needed. Assuming HTML is corrected to Workshop_Interest.
+                
                 try {
                     const response = await fetch(GOOGLE_SHEET_URL, {
                         method: 'POST',
@@ -249,9 +277,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (result.result === 'success') {
                         let finalMessage = successMessage;
+                        
                         if(formId === 'registerForm') {
-                           finalMessage = finalMessage.replace('UTR_PLACEHOLDER', data.UTR_ID || 'N/A');
+                            finalMessage = finalMessage.replace('UTR_PLACEHOLDER', data.UTR_ID || 'N/A');
+                            
+                            // ✅ REGISTRATION SUCCESS: WhatsApp Notification sent to NOVA ACADEMY
+                            sendRegistrationWhatsapp(data); 
                         }
+                        
                         alert(finalMessage);
                         this.reset();
                         closeFn();
