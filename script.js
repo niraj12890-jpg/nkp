@@ -1,25 +1,50 @@
 // Ensure this is your deployed Web App URL from Google Apps Script
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdY_KCTL2Uh_aGprg/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdy_KCTL2Uh_aGprg/exec';
 
-// ---------- Search logic ----------
+// ---------- Search logic (Updated with UX improvement) ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    if(!q) return;
+    const searchMessage = document.getElementById('searchMessage'); // Assuming this ID exists in index.html
+    let resultsFound = 0; 
+
+    if(!q) {
+        // If search is empty, show all items and hide message
+        searchMessage.style.display = 'none';
+        document.querySelectorAll('#workshops .card, #training .trainer-card, #past-workshops .card').forEach(item => {
+            item.style.display = '';
+        });
+        return;
+    }
+
     const workshops = document.querySelectorAll('#workshops .card');
     const trainers = document.querySelectorAll('#training .trainer-card');
     const past = document.querySelectorAll('#past-workshops .card');
     const all = [...workshops, ...trainers, ...past];
+
     all.forEach(item => {
         const text = item.innerText.toLowerCase();
+        const match = text.includes(q);
+        
         // Show item if text contains query, otherwise hide it
-        item.style.display = text.includes(q) ? '' : 'none';
+        item.style.display = match ? '' : 'none';
+        
+        if (match) {
+            resultsFound++; // Increment counter if match found
+        }
     });
+    
+    // Display or hide message based on results
+    if (resultsFound > 0) {
+        searchMessage.style.display = 'none';
+    } else {
+        searchMessage.style.display = 'block';
+    }
 });
 document.getElementById('searchInput').addEventListener('keypress', function(e){
     if(e.key === 'Enter') document.getElementById('searchBtn').click();
 });
 
-// ---------- Popup helpers ----------
+// ---------- Popup helpers (No change needed) ----------
 function openPopup(id){
     const popup = document.getElementById(id);
     if(popup) popup.style.display = 'flex';
@@ -31,7 +56,7 @@ function closePopup(id){
 window.openPopup = openPopup;
 window.closePopup = closePopup;
 
-// ---------- Workshop detailed data ----------
+// ---------- Workshop detailed data (No change needed) ----------
 const workshopData = {
     xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
     electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Weeks\nMode: Online\nFees: ₹ 3999." },
@@ -113,13 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const counters = document.querySelectorAll('.counter');
     const speed = 200; 
 
+    // Use Intersection Observer for better performance (Your existing logic is good)
     counters.forEach(counter => {
         const updateCount = () => {
             const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText.replace('%', '');
+            // Safely handle percentage by replacing it before calculation
+            const count = +counter.innerText.replace('%', ''); 
             const increment = target / speed;
 
             if (count < target) {
+                // Ensure the '%' is added back only if it was originally present
                 counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '');
                 setTimeout(updateCount, 1);
             } else {
@@ -137,91 +165,71 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(counter);
     });
 
-    // --- 1. Enquiry Form Submission Logic ---
-    const enquireForm = document.getElementById('enquireForm');
-    const enquireSubmitBtn = document.getElementById('enquireSubmitBtn'); 
+    // --- Utility function for form handling (Refactored for cleaner code) ---
+    const handleFormSubmission = (formId, submitBtnId, successMessage, closeFn) => {
+        const form = document.getElementById(formId);
+        const submitBtn = document.getElementById(submitBtnId);
 
-    if (enquireForm && GOOGLE_SHEET_URL.startsWith('http')) {
-        enquireForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        if (form && GOOGLE_SHEET_URL.startsWith('http')) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
 
-            enquireSubmitBtn.disabled = true;
-            enquireSubmitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                // Add loading spinner for modern UX
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
 
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => (data[key] = value));
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach((value, key) => (data[key] = value));
 
-            try {
-                const response = await fetch(GOOGLE_SHEET_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded', 
-                    },
-                    body: new URLSearchParams(data).toString(), 
-                });
+                try {
+                    const response = await fetch(GOOGLE_SHEET_URL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded', 
+                        },
+                        body: new URLSearchParams(data).toString(), 
+                    });
 
-                const result = await response.json();
+                    const result = await response.json();
 
-                if (result.result === 'success') {
-                    alert('✅ Enquiry Submitted! We will contact you shortly.');
-                    this.reset();
-                    closePopup('enquirePopup');
-                } else {
-                    alert('❌ Submission Failed! Error: ' + result.message);
+                    if (result.result === 'success') {
+                        let finalMessage = successMessage;
+                        if(formId === 'registerForm') {
+                           finalMessage = finalMessage.replace('UTR_PLACEHOLDER', data.UTR_ID || 'N/A');
+                        }
+                        alert(finalMessage);
+                        this.reset();
+                        closeFn();
+                    } else {
+                        alert('❌ Submission Failed! Error: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error(`${formId} Submission Error:`, error);
+                    alert('❌ An error occurred during submission. Please try again.');
+                } finally {
+                    submitBtn.disabled = false;
+                    // Restore original button text
+                    submitBtn.textContent = (formId === 'enquireForm') ? 'Submit Enquiry' : 'Submit Registration & Payment';
                 }
-            } catch (error) {
-                console.error('Enquiry Submission Error:', error);
-                alert('❌ An error occurred during submission. Please try again.');
-            } finally {
-                enquireSubmitBtn.disabled = false;
-                enquireSubmitBtn.textContent = 'Submit Enquiry';
-            }
-        });
-    }
+            });
+        }
+    };
+    
+    // --- 1. Enquiry Form Submission Logic ---
+    handleFormSubmission(
+        'enquireForm',
+        'enquireSubmitBtn',
+        '✅ Enquiry Submitted! We will contact you shortly.',
+        () => closePopup('enquirePopup')
+    );
 
     // --- 2. Registration Form Submission Logic ---
-    const registerForm = document.getElementById('registerForm');
-    const registerSubmitBtn = document.getElementById('registerSubmitBtn'); 
-
-    if (registerForm && GOOGLE_SHEET_URL.startsWith('http')) {
-        registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            registerSubmitBtn.disabled = true;
-            registerSubmitBtn.textContent = 'Submitting...';
-
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => (data[key] = value));
-
-            try {
-                const response = await fetch(GOOGLE_SHEET_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(data).toString(),
-                });
-
-                const result = await response.json();
-
-                if (result.result === 'success') {
-                    alert('🎉 Registration Successful! We are verifying your payment (UTR: ' + data.UTR_ID + '). Confirmation will be sent via email.');
-                    this.reset();
-                    closePopup('registerPopup');
-                } else {
-                    alert('❌ Registration Failed! Error: ' + result.message);
-                }
-            } catch (error) {
-                console.error('Registration Submission Error:', error);
-                alert('❌ An error occurred during registration. Please check console.');
-            } finally {
-                registerSubmitBtn.disabled = false;
-                registerSubmitBtn.textContent = 'Submit Registration & Payment';
-            }
-        });
-    }
+    handleFormSubmission(
+        'registerForm',
+        'registerSubmitBtn',
+        '🎉 Registration Successful! We are verifying your payment (UTR: UTR_PLACEHOLDER). Confirmation will be sent via email.',
+        () => closePopup('registerPopup')
+    );
 });
