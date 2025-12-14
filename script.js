@@ -1,207 +1,136 @@
+// Ensure this is your deployed Web App URL from Google Apps Script
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdY_KCTL2Uh_aGprg/exec';
+
+// --- Cleanup: Removing old submission logic ---
+// REMOVED: const SCRIPT_URL = "..." 
+// REMOVED: function submitEnquiry(){...} 
+// REMOVED: function submitRegistration(){...}
+
 // ---------- Search logic ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(!q) return;
-  const workshops = document.querySelectorAll('#workshops .card');
-  const trainers = document.querySelectorAll('#training .trainer-card');
-  const past = document.querySelectorAll('#past-workshops .card');
-  const all = [...workshops, ...trainers, ...past];
-  all.forEach(item => {
-    const text = item.innerText.toLowerCase();
-    item.style.display = text.includes(q) ? '' : 'none';
-  });
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    if(!q) return;
+    const workshops = document.querySelectorAll('#workshops .card');
+    const trainers = document.querySelectorAll('#training .trainer-card');
+    const past = document.querySelectorAll('#past-workshops .card');
+    const all = [...workshops, ...trainers, ...past];
+    all.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        // Show item if text contains query, otherwise hide it
+        item.style.display = text.includes(q) ? '' : 'none';
+    });
 });
 document.getElementById('searchInput').addEventListener('keypress', function(e){
-  if(e.key === 'Enter') document.getElementById('searchBtn').click();
+    if(e.key === 'Enter') document.getElementById('searchBtn').click();
 });
 
 // ---------- Popup helpers ----------
-function openPopup(id){ 
-  const popup = document.getElementById(id);
-  if(popup) popup.style.display = 'flex';
+function openPopup(id){
+    const popup = document.getElementById(id);
+    if(popup) popup.style.display = 'flex';
 }
-function closePopup(id){ 
-  const popup = document.getElementById(id);
-  if(popup) popup.style.display = 'none';
+function closePopup(id){
+    const popup = document.getElementById(id);
+    if(popup) popup.style.display = 'none';
 }
+window.openPopup = openPopup; // Expose to HTML buttons
+window.closePopup = closePopup; // Expose to HTML buttons
 
 // ---------- Workshop detailed data ----------
 const workshopData = {
-  xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Detailed info on XPS Data Analysis..." },
-  electro: { title:"Electrochemical Data Analysis Workshop", img:"images/w2.png", pdf:"#", desc:"Electrochemical data analysis details..." },
-  origin: { title:"OriginPro Graphing & Data Analysis Workshop", img:"images/w3.png", pdf:"#", desc:"OriginPro training details..." },
-  xrd: { title:"XRD Data Analysis Workshop", img:"images/w4.png", pdf:"#", desc:"XRD analysis info..." },
-  chemdraw: { title:"ChemDraw Hands-on Workshop", img:"images/w5.png", pdf:"#", desc:"ChemDraw training info..." },
-  dwsim: { title:"DWSIM Chemical Simulation Workshop", img:"images/w6.png", pdf:"#", desc:"DWSIM simulation details..." }
+    xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
+    electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Weeks\nMode: Online\nFees: ₹ 3999." },
+    origin: { title:"OriginPro Graphing & Data Analysis", img:"images/w3.png", pdf:"#", desc:"Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2499." },
+    xrd: { title:"XRD Data Analysis Workshop", img:"images/w4.png", pdf:"#", desc:"Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
+    chemdraw: { title:"ChemDraw Hands-on Training", img:"images/w5.png", pdf:"#", desc:"Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 1999." },
+    dwsim: { title:"DWSIM Chemical Simulation", img:"images/w6.png", pdf:"#", desc:"Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." }
 };
 
 function openDetails(key){
-  const data = workshopData[key];
-  if(!data) return;
+    const data = workshopData[key];
+    if(!data) return;
 
-  document.getElementById('workshopTitle').innerText = data.title;
-  document.getElementById('workshopImg').src = data.img;
-  document.getElementById('workshopDesc').innerText = data.desc;
-  document.getElementById('syllabusBtn').href = data.pdf || '#';
-  document.getElementById('workshopInfo').style.display = 'flex';
+    document.getElementById('workshopTitle').innerText = data.title;
+    document.getElementById('workshopImg').src = data.img;
+    document.getElementById('workshopDesc').innerText = data.desc;
+    document.getElementById('syllabusBtn').href = data.pdf || '#';
+    document.getElementById('workshopInfo').style.display = 'flex';
 
-  document.documentElement.style.overflow = 'hidden';
-  document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 
-  // WhatsApp auto message
-  const msg = encodeURIComponent(
-    `Hello Nova Academy 👋\nमैं *${data.title}* workshop में interested हूँ।\nPlease details, fees & schedule share करें।`
-  );
-  document.getElementById("popupWhatsappBtn").href = `https://wa.me/919598183089?text=${msg}`;
-  document.getElementById("whatsappLink").href = `https://wa.me/919598183089?text=${msg}`;
-}
-
-function closeDetails(){
-  document.getElementById('workshopInfo').style.display = 'none';
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
-}
-
-// Close popup on outside click
-document.addEventListener('click', function(e){
-  const overlayIds = ['workshopInfo','enquirePopup','registerPopup'];
-  overlayIds.forEach(id => {
-    const overlay = document.getElementById(id);
-    if(overlay && overlay.style.display === 'flex' && e.target === overlay) {
-      if(id === 'workshopInfo') closeDetails(); 
-      else closePopup(id);
-    }
-  });
-});
-
-// Escape key closes all popups
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    closeDetails();
-    closePopup('enquirePopup');
-    closePopup('registerPopup');
-  }
-});
-
-// ---------- Counters ----------
-document.querySelectorAll('.counter').forEach(counter => {
-  counter.innerText = '0';
-  const update = () => {
-    const target = +counter.getAttribute('data-target');
-    let current = +counter.innerText;
-    const increment = target / 200;
-    if(current < target){
-      counter.innerText = `${Math.ceil(current + increment)}`;
-      setTimeout(update, 20);
-    } else {
-      counter.innerText = target;
-    }
-  }
-  update();
-});
-
-// ---------- Google Script URL ----------
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOq1-GYeeQoKHw4DJ3a1XEQIrq9ydS2FvUsXtqWLM3IKwCg9zEX_8Q9WOSDl7FrdE2HQ/exec";
-
-// ---------- Enquiry submission ----------
-function submitEnquiry(){
-  const name = document.getElementById("enqName").value.trim();
-  const mobile = document.getElementById("enqMobile").value.trim();
-  const workshop = document.getElementById("enqWorkshop").value;
-
-  if(!name || !mobile){ alert("Please fill all fields!"); return; }
-
-  const data = { type:"enquiry", name, mobile, workshop };
-  fetch(SCRIPT_URL,{
-    method:"POST",
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(() => {
-    alert("Enquiry submitted successfully!");
-    closePopup('enquirePopup');
-    window.open(`https://wa.me/919598183089?text=${encodeURIComponent("New Enquiry\nName: "+name+"\nWorkshop: "+workshop)}`,"_blank");
-  });
-}
-
-// ---------- Registration submission ----------
-function submitRegistration(){
-  const name = document.getElementById("regName").value.trim();
-  const email = document.getElementById("regEmail").value.trim();
-  const mobile = document.getElementById("regMobile").value.trim();
-  const workshop = document.getElementById("regWorkshop").value;
-  const utr = document.getElementById("regUTR").value.trim();
-
-  if(!name || !email || !mobile || !utr){ alert("Please fill all fields!"); return; }
-
-  const data = { type:"registration", name, email, mobile, workshop, utr };
-  fetch(SCRIPT_URL,{
-    method:"POST",
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(() => {
-    alert("Registration successful! Payment status: Pending");
-    closePopup('registerPopup');
-    window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("Nova Academy\nRegistration received for "+workshop+".\nPayment Status: Pending")}`,"_blank");
-  });
-}
-// script.js (continued)
-
-// Function to handle enquiry form submission
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Existing Popup and Detail functions
-    window.openDetails = function(workshopId) {
-        // ... (Your existing openDetails function logic) ...
-        const workshopData = {
-            'xps': { title: 'XPS Data Analysis Workshop', img: 'images/w1.png', desc: 'Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
-            'electro': { title: 'Electrochemical Data Analysis', img: 'images/w2.png', desc: 'EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Weeks\nMode: Online\nFees: ₹ 3999.' },
-            'origin': { title: 'OriginPro Graphing & Data Analysis', img: 'images/w3.png', desc: 'Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2499.' },
-            'xrd': { title: 'XRD Data Analysis Workshop', img: 'images/w4.png', desc: 'Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
-            'chemdraw': { title: 'ChemDraw Hands-on Training', img: 'images/w5.png', desc: 'Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 1999.' },
-            'dwsim': { title: 'DWSIM Chemical Simulation', img: 'images/w6.png', desc: 'Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
-        };
-        const data = workshopData[workshopId];
-        if (data) {
-            document.getElementById('workshopTitle').textContent = data.title;
-            document.getElementById('workshopImg').src = data.img;
-            document.getElementById('workshopDesc').textContent = data.desc;
-            // Set workshop in Enquire/Register popups
-            const enquireSelect = document.getElementById('enquiryWorkshop');
-            if (enquireSelect) {
-                for (let i = 0; i < enquireSelect.options.length; i++) {
-                    if (enquireSelect.options[i].text === data.title) {
-                        enquireSelect.value = enquireSelect.options[i].value;
-                        break;
-                    }
+    // Set selected workshop in Enquire and Register popups
+    const workshopTitle = data.title;
+    const updateSelect = (selectId) => {
+        const select = document.getElementById(selectId);
+        if (select) {
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text === workshopTitle) {
+                    select.value = select.options[i].value;
+                    return;
                 }
             }
-            document.getElementById('workshopInfo').style.display = 'flex';
         }
     };
+    // Update Enquiry Select (enquiryWorkshop)
+    updateSelect('enquiryWorkshop'); 
+    // Update Register Select (regWorkshop)
+    updateSelect('regWorkshop'); 
 
-    window.closeDetails = function() {
-        document.getElementById('workshopInfo').style.display = 'none';
-    };
+    // WhatsApp auto message
+    const msg = encodeURIComponent(
+        `Hello Nova Academy 👋\nमैं *${data.title}* workshop में interested हूँ।\nPlease details, fees & schedule share करें।`
+    );
+    document.getElementById("popupWhatsappBtn").href = `https://wa.me/919598183089?text=${msg}`;
+    // Optionally update the floating WhatsApp link as well if you want it context-aware
+    // document.getElementById("whatsappLink").href = `https://wa.me/919598183089?text=${msg}`;
+}
+window.openDetails = openDetails; // Expose to HTML buttons
 
-    window.openPopup = function(popupId) {
-        document.getElementById(popupId).style.display = 'flex';
-    };
+function closeDetails(){
+    document.getElementById('workshopInfo').style.display = 'none';
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+}
+window.closeDetails = closeDetails; // Expose to HTML buttons
 
-    window.closePopup = function(popupId) {
-        document.getElementById(popupId).style.display = 'none';
-    };
 
-    // 2. Counter function (optional)
+// Close popup on outside click and Escape key (Your original working logic)
+document.addEventListener('click', function(e){
+    const overlayIds = ['workshopInfo','enquirePopup','registerPopup'];
+    overlayIds.forEach(id => {
+        const overlay = document.getElementById(id);
+        if(overlay && overlay.style.display === 'flex' && e.target === overlay) {
+            if(id === 'workshopInfo') closeDetails();
+            else closePopup(id);
+        }
+    });
+});
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        closeDetails();
+        closePopup('enquirePopup');
+        closePopup('registerPopup');
+    }
+});
+
+
+// ---------- Counters (Your original working logic) ----------
+// I've kept your simplified counter logic here, though the one in DOMContentLoaded block below is better
+// document.querySelectorAll('.counter').forEach(counter => { ... }); 
+
+
+// ---------- DOMContentLoaded: Form Submission Logic ----------
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Counter Logic (Better, as it runs once DOM is ready) ---
     const counters = document.querySelectorAll('.counter');
-    const speed = 200; // The lower the slower
+    const speed = 200; 
 
     counters.forEach(counter => {
         const updateCount = () => {
             const target = +counter.getAttribute('data-target');
             const count = +counter.innerText.replace('%', '');
-            
             const increment = target / speed;
 
             if (count < target) {
@@ -211,77 +140,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
             }
         };
-        // Add Intersection Observer to only start when in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     updateCount();
-                    observer.unobserve(counter); // Stop observing once started
+                    observer.unobserve(counter); 
                 }
             });
         }, { threshold: 0.5 });
         observer.observe(counter);
     });
 
-    // 3. Enquiry Form Submission Logic (NEW)
+    // --- 1. Enquiry Form Submission Logic (Modified to use new HTML IDs and final logic) ---
     const enquireForm = document.getElementById('enquireForm');
-    const submitBtn = document.getElementById('enquireSubmitBtn');
+    const enquireSubmitBtn = document.getElementById('enquireSubmitBtn'); // Ensure this ID exists in HTML
 
     if (enquireForm && GOOGLE_SHEET_URL.startsWith('http')) {
         enquireForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault();
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+            enquireSubmitBtn.disabled = true;
+            enquireSubmitBtn.textContent = 'Submitting...';
 
             const formData = new FormData(this);
             const data = {};
+            // Convert FormData to object for URLSearchParams
             formData.forEach((value, key) => (data[key] = value));
 
             try {
                 const response = await fetch(GOOGLE_SHEET_URL, {
                     method: 'POST',
-                    mode: 'cors', // Crucial for cross-origin requests
+                    mode: 'cors',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/x-www-form-urlencoded', // Required for Apps Script POST
                     },
-                    body: new URLSearchParams(data).toString(),
+                    body: new URLSearchParams(data).toString(), // Correct format
                 });
 
                 const result = await response.json();
 
                 if (result.result === 'success') {
                     alert('✅ Enquiry Submitted! We will contact you shortly.');
-                    this.reset(); // Clear the form
+                    this.reset();
                     closePopup('enquirePopup');
                 } else {
                     alert('❌ Submission Failed! Error: ' + result.message);
                 }
             } catch (error) {
-                console.error('Submission Error:', error);
+                console.error('Enquiry Submission Error:', error);
                 alert('❌ An error occurred during submission. Please try again.');
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Enquiry';
+                enquireSubmitBtn.disabled = false;
+                enquireSubmitBtn.textContent = 'Submit Enquiry';
             }
         });
-    } else if (enquireForm) {
-        // Fallback if URL is missing/incorrect: show alert and allow manual follow-up
-        enquireForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("Google Sheet Integration is not configured. Please contact info@novaacademy.com manually.");
-        });
     }
-});
-// script.js (continued, inside DOMContentLoaded)
 
-    // 4. Registration Form Submission Logic (NEW)
+    // --- 2. Registration Form Submission Logic (Final Logic) ---
     const registerForm = document.getElementById('registerForm');
-    const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+    const registerSubmitBtn = document.getElementById('registerSubmitBtn'); 
 
     if (registerForm && GOOGLE_SHEET_URL.startsWith('http')) {
         registerForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault();
 
             registerSubmitBtn.disabled = true;
             registerSubmitBtn.textContent = 'Submitting...';
@@ -304,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (result.result === 'success') {
                     alert('🎉 Registration Successful! We are verifying your payment (UTR: ' + data.UTR_ID + '). Confirmation will be sent via email.');
-                    this.reset(); // Clear the form
+                    this.reset();
                     closePopup('registerPopup');
                 } else {
                     alert('❌ Registration Failed! Error: ' + result.message);
@@ -318,3 +239,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
