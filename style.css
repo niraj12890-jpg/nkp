@@ -193,3 +193,42 @@ footer a:hover { color: var(--neon); }
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* ---------- Scroll to Top Button (New Feature) ---------- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 140px; /* Above the WhatsApp button */
+    right: 20px;
+    background: var(--neon);
+    color: var(--bs-dark);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-5px);
+}
+
+/* Enhancements for Existing Elements */
+/* Add subtle neon glow to input fields on focus */
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.45) !important;
+    border-color: var(--neon) !important;
+    background-color: var(--card-bg) !important;
+    color: #fff;
+}
+.form-control {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(58, 134, 255, 0.2);
+    color: #fff;
+}
