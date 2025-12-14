@@ -4,7 +4,7 @@ const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo
 // ---------- Search logic (Updated with UX improvement) ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    const searchMessage = document.getElementById('searchMessage'); // Assuming this ID exists in index.html
+    const searchMessage = document.getElementById('searchMessage'); 
     let resultsFound = 0; 
 
     if(!q) {
@@ -44,7 +44,7 @@ document.getElementById('searchInput').addEventListener('keypress', function(e){
     if(e.key === 'Enter') document.getElementById('searchBtn').click();
 });
 
-// ---------- Popup helpers (No change needed) ----------
+// ---------- Popup helpers ----------
 function openPopup(id){
     const popup = document.getElementById(id);
     if(popup) popup.style.display = 'flex';
@@ -55,14 +55,15 @@ function closePopup(id){
 }
 window.openPopup = openPopup;
 window.closePopup = closePopup;
-// ---------- Scroll To Top Logic (New) ----------
+
+// ---------- Scroll To Top Logic ----------
 const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 300) { // Show button after scrolling 300px
         scrollToTopBtn.classList.add('show');
     } else {
-        scrollToTopBtn.classList.remove('show');
+        scrollToTo pBtn.classList.remove('show');
     }
 });
 
@@ -73,24 +74,15 @@ scrollToTopBtn.addEventListener('click', () => {
     });
 });
 
-// ---------- Workshop detailed data (No change needed) ----------
-// ---------- Workshop detailed data (UPDATED: Match with index.html fees) ----------
+// ---------- Workshop detailed data (FINAL & CORRECTED) ----------
 const workshopData = {
     xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
-    // Fees updated to 2500 (from 3999) - Based on index.html: ₹ 2500
     electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Week\nMode: Online\nFees: ₹ 2500." }, 
-    // Fees updated to 2000 (from 2499) - Based on index.html: ₹ 2000
     origin: { title:"OriginPro Graphing & Data Analysis", img:"images/w3.png", pdf:"#", desc:"Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2000." },
-    // Fees updated to 2000 (from 2999) - Based on index.html: ₹ 2000
     xrd: { title:"XRD Data Analysis Workshop", img:"images/w4.png", pdf:"#", desc:"Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2000." }, 
-    // Fees updated to 4500 (from 1999) - Based on index.html: ₹ 4500
     chemdraw: { title:"ChemDraw Hands-on Training", img:"images/w5.png", pdf:"#", desc:"Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 4500." },
-    // Fees updated to 5000 (from 2999) - Based on index.html: ₹ 5000
     dwsim: { title:"DWSIM Chemical Simulation", img:"images/w6.png", pdf:"#", desc:"Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 5000." }
 };
-
-function openDetails(key){
-// ... rest of the function remains the same ...
 
 function openDetails(key){
     const data = workshopData[key];
@@ -111,7 +103,9 @@ function openDetails(key){
         const select = document.getElementById(selectId);
         if (select) {
             for (let i = 0; i < select.options.length; i++) {
-                if (select.options[i].text === workshopTitle) {
+                // Handle complex option text in Registration form (e.g., "XPS... (₹ 2999)")
+                const optionText = select.options[i].text.split(' (')[0].trim(); 
+                if (optionText === workshopTitle) {
                     select.value = select.options[i].value;
                     return;
                 }
@@ -139,7 +133,7 @@ window.closeDetails = closeDetails;
 
 // Close popup on outside click and Escape key 
 document.addEventListener('click', function(e){
-    const overlayIds = ['workshopInfo','enquirePopup','registerPopup'];
+    const overlayIds = ['workshopInfo','registerPopup'];
     overlayIds.forEach(id => {
         const overlay = document.getElementById(id);
         if(overlay && overlay.style.display === 'flex' && e.target === overlay) {
@@ -151,47 +145,45 @@ document.addEventListener('click', function(e){
 document.addEventListener("keydown", function(e){
     if(e.key === "Escape"){
         closeDetails();
-        closePopup('enquirePopup');
         closePopup('registerPopup');
     }
 });
 
 
-// ---------- DOMContentLoaded: Form Submission Logic and Counters ----------
+// ---------- DOMContentLoaded: Form Submission Logic, Counters & Lightbox ----------
 document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Lightbox/Gallery Modal Logic ---
+    // Note: The modal is part of Bootstrap, this JS links the image source
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const imageUrl = button.getAttribute('data-bs-image');
+            const modalImage = imageModal.querySelector('#modalImage');
+            modalImage.src = imageUrl;
+        });
+    }
 
     // --- Counter Logic ---
     const counters = document.querySelectorAll('.counter');
     const speed = 200; 
-    // --- Lightbox/Gallery Modal Logic (NEW) ---
-const imageModal = document.getElementById('imageModal');
-if (imageModal) {
-    imageModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget;
-        // Extract info from data-bs-image attributes
-        const imageUrl = button.getAttribute('data-bs-image');
-        
-        // Update the modal's content.
-        const modalImage = imageModal.querySelector('#modalImage');
-        modalImage.src = imageUrl;
-    });
-}
 
-    // Use Intersection Observer for better performance (Your existing logic is good)
+    // Use Intersection Observer for better performance
     counters.forEach(counter => {
         const updateCount = () => {
             const target = +counter.getAttribute('data-target');
+            const currentText = counter.innerText;
             // Safely handle percentage by replacing it before calculation
-            const count = +counter.innerText.replace('%', ''); 
+            const count = +currentText.replace('%', '').replace('+', '');
             const increment = target / speed;
 
             if (count < target) {
-                // Ensure the '%' is added back only if it was originally present
-                counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '');
+                // Ensure the '%' or '+' is added back only if it was originally present
+                counter.innerText = Math.ceil(count + increment) + (currentText.includes('%') ? '%' : '') + (currentText.includes('+') ? '+' : '');
                 setTimeout(updateCount, 1);
             } else {
-                counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
+                counter.innerText = target + (currentText.includes('%') ? '%' : '') + (currentText.includes('+') ? '+' : '');
             }
         };
         const observer = new IntersectionObserver((entries) => {
@@ -213,31 +205,28 @@ if (imageModal) {
         if (form && GOOGLE_SHEET_URL.startsWith('http')) {
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                e.preventDefault();
-            
-            // --- NEW: Basic Form Validation Check ---
-            let isValid = true;
-            this.querySelectorAll('[required]').forEach(input => {
-                input.classList.remove('is-invalid'); // Clear previous invalid state
-                if (!input.value.trim()) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
-                // Basic format checks (can be expanded)
-                if (input.type === 'email' && !input.value.includes('@')) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
-            });
+                
+                // --- NEW: Basic Form Validation Check ---
+                let isValid = true;
+                this.querySelectorAll('[required]').forEach(input => {
+                    input.classList.remove('is-invalid'); // Clear previous invalid state
+                    if (!input.value.trim()) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                    // Basic format checks (can be expanded)
+                    if (input.type === 'email' && !input.value.includes('@')) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                });
 
-            if (!isValid) {
-                alert('⚠️ Please fill out all required fields correctly.');
-                return; // Stop execution if form is invalid
-            }
-            // --- END: Form Validation Check ---
+                if (!isValid) {
+                    alert('⚠️ Please fill out all required fields correctly.');
+                    return; // Stop execution if form is invalid
+                }
+                // --- END: Form Validation Check ---
 
-            submitBtn.disabled = true;
-// ... rest of the function continues from here ...
                 submitBtn.disabled = true;
                 // Add loading spinner for modern UX
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
@@ -286,7 +275,7 @@ if (imageModal) {
         'enquireForm',
         'enquireSubmitBtn',
         '✅ Enquiry Submitted! We will contact you shortly.',
-        () => closePopup('enquirePopup')
+        () => {} // No popup to close, as form is on main page
     );
 
     // --- 2. Registration Form Submission Logic ---
