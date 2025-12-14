@@ -1,3 +1,4 @@
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdY_KCTL2Uh_aGprg/exec';
 // ---------- Search logic ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -146,3 +147,129 @@ function submitRegistration(){
     window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("Nova Academy\nRegistration received for "+workshop+".\nPayment Status: Pending")}`,"_blank");
   });
 }
+// script.js (continued)
+
+// Function to handle enquiry form submission
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Existing Popup and Detail functions
+    window.openDetails = function(workshopId) {
+        // ... (Your existing openDetails function logic) ...
+        const workshopData = {
+            'xps': { title: 'XPS Data Analysis Workshop', img: 'images/w1.png', desc: 'Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
+            'electro': { title: 'Electrochemical Data Analysis', img: 'images/w2.png', desc: 'EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Weeks\nMode: Online\nFees: ₹ 3999.' },
+            'origin': { title: 'OriginPro Graphing & Data Analysis', img: 'images/w3.png', desc: 'Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2499.' },
+            'xrd': { title: 'XRD Data Analysis Workshop', img: 'images/w4.png', desc: 'Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
+            'chemdraw': { title: 'ChemDraw Hands-on Training', img: 'images/w5.png', desc: 'Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 1999.' },
+            'dwsim': { title: 'DWSIM Chemical Simulation', img: 'images/w6.png', desc: 'Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999.' },
+        };
+        const data = workshopData[workshopId];
+        if (data) {
+            document.getElementById('workshopTitle').textContent = data.title;
+            document.getElementById('workshopImg').src = data.img;
+            document.getElementById('workshopDesc').textContent = data.desc;
+            // Set workshop in Enquire/Register popups
+            const enquireSelect = document.getElementById('enquiryWorkshop');
+            if (enquireSelect) {
+                for (let i = 0; i < enquireSelect.options.length; i++) {
+                    if (enquireSelect.options[i].text === data.title) {
+                        enquireSelect.value = enquireSelect.options[i].value;
+                        break;
+                    }
+                }
+            }
+            document.getElementById('workshopInfo').style.display = 'flex';
+        }
+    };
+
+    window.closeDetails = function() {
+        document.getElementById('workshopInfo').style.display = 'none';
+    };
+
+    window.openPopup = function(popupId) {
+        document.getElementById(popupId).style.display = 'flex';
+    };
+
+    window.closePopup = function(popupId) {
+        document.getElementById(popupId).style.display = 'none';
+    };
+
+    // 2. Counter function (optional)
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; // The lower the slower
+
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText.replace('%', '');
+            
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '');
+                setTimeout(updateCount, 1);
+            } else {
+                counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
+            }
+        };
+        // Add Intersection Observer to only start when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCount();
+                    observer.unobserve(counter); // Stop observing once started
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(counter);
+    });
+
+    // 3. Enquiry Form Submission Logic (NEW)
+    const enquireForm = document.getElementById('enquireForm');
+    const submitBtn = document.getElementById('enquireSubmitBtn');
+
+    if (enquireForm && GOOGLE_SHEET_URL.startsWith('http')) {
+        enquireForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => (data[key] = value));
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL, {
+                    method: 'POST',
+                    mode: 'cors', // Crucial for cross-origin requests
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data).toString(),
+                });
+
+                const result = await response.json();
+
+                if (result.result === 'success') {
+                    alert('✅ Enquiry Submitted! We will contact you shortly.');
+                    this.reset(); // Clear the form
+                    closePopup('enquirePopup');
+                } else {
+                    alert('❌ Submission Failed! Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Submission Error:', error);
+                alert('❌ An error occurred during submission. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Enquiry';
+            }
+        });
+    } else if (enquireForm) {
+        // Fallback if URL is missing/incorrect: show alert and allow manual follow-up
+        enquireForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Google Sheet Integration is not configured. Please contact info@novaacademy.com manually.");
+        });
+    }
+});
