@@ -1,5 +1,5 @@
 // Ensure this is your deployed Web App URL from Google Apps Script
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdy_KCTL2Uh_aGprg/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdY_KCTL2Uh_aGprg/exec';
 
 // ---------- Search logic (Updated with UX improvement) ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
