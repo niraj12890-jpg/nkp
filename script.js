@@ -27,7 +27,7 @@
     const workshopData = {
   xps: {
     title: "XPS Data Analysis Workshop",
-    img: "XPSIMAGE.png",
+    img: "w1.png",
     pdf: "#",
     desc: `About the Workshop
 
