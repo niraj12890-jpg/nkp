@@ -95,11 +95,12 @@ body {
 }
 
 /* ---------- Trainer Card Styles (New) ---------- */
+/* ---------- Trainer Card Styles (Fix/Cleanup) ---------- */
 .trainer-card {
-    background: #11184a; /* Slightly lighter background than card-bg for contrast on dark section */
-    border: 1px solid rgba(58, 134, 255, 0.4);
-    box-shadow: 0 0 15px rgba(58, 134, 255, 0.2);
-    height: 100%;
+    background: var(--card-bg); /* Changed from #11184a to match main card background */
+    border: 1px solid rgba(58, 134, 255, 0.4);
+    box-shadow: 0 0 15px rgba(58, 134, 255, 0.2);
+    height: 100%;
 }
 .trainer-img {
     width: 120px;
@@ -220,6 +221,26 @@ footer a:hover { color: var(--neon); }
 }
 
 /* Enhancements for Existing Elements */
+/* ---------- Gallery Image Styles (New) ---------- */
+#gallery img {
+    cursor: pointer; /* Indicates the image is clickable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid rgba(58, 134, 255, 0.2);
+}
+#gallery img:hover {
+    transform: scale(1.05); /* Zoom slightly on hover */
+    box-shadow: 0 0 15px var(--neon); /* Neon glow on hover */
+}
+
+/* ---------- Lightbox Modal Customization (Bootstrap Override) ---------- */
+/* Hide the default close button for a cleaner full-screen view */
+#imageModal .btn-close {
+    display: none; 
+}
+/* Ensure the modal content is large and centered */
+#imageModal .modal-dialog {
+    max-width: 95%; 
+}
 /* Add subtle neon glow to input fields on focus */
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.45) !important;
