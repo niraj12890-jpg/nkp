@@ -63,7 +63,7 @@ window.addEventListener('scroll', () => {
     if (window.scrollY > 300) { // Show button after scrolling 300px
         scrollToTopBtn.classList.add('show');
     } else {
-        scrollToTo pBtn.classList.remove('show');
+        scrollToTopBtn.classList.remove('show');
     }
 });
 
