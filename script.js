@@ -163,6 +163,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Counter Logic ---
     const counters = document.querySelectorAll('.counter');
     const speed = 200; 
+    // --- Lightbox/Gallery Modal Logic (NEW) ---
+const imageModal = document.getElementById('imageModal');
+if (imageModal) {
+    imageModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+        // Extract info from data-bs-image attributes
+        const imageUrl = button.getAttribute('data-bs-image');
+        
+        // Update the modal's content.
+        const modalImage = imageModal.querySelector('#modalImage');
+        modalImage.src = imageUrl;
+    });
+}
 
     // Use Intersection Observer for better performance (Your existing logic is good)
     counters.forEach(counter => {
