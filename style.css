@@ -1,4 +1,3 @@
-<style>
     /* ---------- Base styles ---------- */
     :root {
       --bg: #020b33;
@@ -130,4 +129,3 @@
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-  </style>
