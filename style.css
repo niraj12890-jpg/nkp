@@ -1,137 +1,138 @@
-    /* ---------- Base styles ---------- */
-    :root {
-      --bg: #020b33;
-      --card-bg: #061046;
-      --neon: #3a86ff;
-      --accent: #0d6efd;
-    }
-    body {
-      background-color: var(--bg);
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding-top: 70px; /* space for fixed navbar */
-    }
-    .neon-text {
-      text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
-      font-weight: 600;
-    }
-    .btn-neon {
-      background: var(--accent);
-      border: none;
-      box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-      color: #fff;
-    }
+/* ---------- Base styles ---------- */
+:root {
+  --bg: #020b33;
+  --card-bg: #061046;
+  --neon: #3a86ff;
+  --accent: #0d6efd;
+}
+body {
+  background-color: var(--bg);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding-top: 70px; /* space for fixed navbar */
+}
+.neon-text {
+  text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
+  font-weight: 600;
+}
+.btn-neon {
+  background: var(--accent);
+  border: none;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+  color: #fff;
+  transition: 0.3s ease;
+}
+.btn-neon:hover {
+  box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+  transform: scale(1.03);
+}
 
-    /* ---------- Navbar ---------- */
-    .navbar-brand { letter-spacing: 0.6px; }
+/* ---------- Navbar ---------- */
+.navbar-brand { letter-spacing: 0.6px; }
 
-    /* ---------- Search (fix overlapping) ---------- */
-    #search {
-      position: relative;
-      margin-top: 10px; /* small gap from navbar (navbar is fixed) */
-      z-index: 10;
-    }
-    #search .input-group { box-shadow: 0 6px 30px rgba(0,0,0,0.6); }
+/* ---------- Search ---------- */
+#search {
+  position: relative;
+  margin-top: 10px;
+  z-index: 10;
+}
+#search .input-group { box-shadow: 0 6px 30px rgba(0,0,0,0.6); }
 
-    /* ---------- Hero ---------- */
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,70,0.6)), url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80');
-      background-size: cover;
-      background-position: center;
-      padding: 120px 0;
-      text-align: center;
-    }
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,70,0.6)), url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80');
+  background-size: cover;
+  background-position: center;
+  padding: 120px 0;
+  text-align: center;
+}
 
-    /* ---------- Cards (Option B - Wide Banner) ---------- */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid rgba(31,63,255,0.25);
-      box-shadow: 0 0 20px rgba(0,102,255,0.12);
-      border-radius: 12px;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .card .card-img-top {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 12px 12px 0 0;
-    }
-    .card-body { display:flex; flex-direction:column; gap:10px; padding:16px; }
-    .card .btn { margin-top: auto; } /* makes buttons stick to bottom area */
+/* ---------- Cards ---------- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(31,63,255,0.25);
+  box-shadow: 0 0 20px rgba(0,102,255,0.12);
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); }
+.card .card-img-top {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+.card-body { display:flex; flex-direction:column; gap:10px; padding:16px; }
+.card .btn { margin-top: auto; }
 
-    /* keep consistent height */
-    #workshops .col-md-4 { display: flex; }
-    #workshops .col-md-4 > .card { flex: 1; }
+/* equal card height */
+#workshops .col-md-4 { display: flex; }
+#workshops .col-md-4 > .card { flex: 1; }
 
-    /* ---------- Popup styles (full-screen & scrollable) ---------- */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(0,0,40,0.92);
-      backdrop-filter: blur(5px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999999;
-      padding: 20px;
-      animation: fadeIn 0.3s ease;
-    }
-    .popup-box {
-      background: var(--card-bg);
-      width: 100%;
-      max-width: 1000px;
-      max-height: 92vh;
-      overflow-y: auto;
-      border: 2px solid var(--neon);
-      box-shadow: 0 0 30px rgba(58,134,255,0.18);
-      border-radius: 12px;
-      padding: 22px;
-      color: #fff;
-    }
-    .popup-img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-bottom: 14px;
-      max-height: 360px;
-    }
+/* ---------- Popup ---------- */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,40,0.92);
+  backdrop-filter: blur(5px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+.popup-box {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 1000px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border: 2px solid var(--neon);
+  box-shadow: 0 0 30px rgba(58,134,255,0.18);
+  border-radius: 12px;
+  padding: 22px;
+  color: #fff;
+  animation: zoomIn 0.3s ease;
+}
+.popup-img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 14px;
+  max-height: 360px;
+}
 
-    /* small-screen tuning */
-    @media (max-width: 767px) {
-      .card .card-img-top { height: 140px; }
-      .hero { padding: 80px 0; }
-      #search { margin-top: 8px; padding-left: 8px; padding-right: 8px; }
-    }
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .card .card-img-top { height: 140px; }
+  .hero { padding: 80px 0; }
+  #search { margin-top: 8px; padding-left: 8px; padding-right: 8px; }
+}
 
-    /* marquee styling */
-    marquee {
+/* ---------- Marquee ---------- */
+marquee {
   display: block;
   padding-top: 8px;
 }
-    /* footer neon border */
-    footer a,
-footer p {
-  color: #cfe2ff;
-}
-footer a:hover {
-  color: var(--neon);
-}
-    /* popup animation */
-.popup-box {
-  animation: zoomIn 0.3s ease;
-}
 
+/* ---------- Footer ---------- */
+footer a,
+footer p { color: #cfe2ff; }
+footer a:hover { color: var(--neon); }
+
+/* ---------- Popup Animations ---------- */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes zoomIn {
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
