@@ -301,13 +301,40 @@
   <section class="container py-5" id="gallery">
     <h2 class="neon-text text-center mb-5">Image Gallery</h2>
     <div class="row g-3">
-      <div class="col-md-4"><img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=600&q=60" class="img-fluid rounded"></div>
-      <div class="col-md-4"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=60" class="img-fluid rounded"></div>
-      <div class="col-md-4"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=60" class="img-fluid rounded"></div>
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=600&q=60" 
+                 class="img-fluid rounded"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#imageModal"
+                 data-bs-image="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1200&q=80">
+        </div>
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=60" 
+                 class="img-fluid rounded"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#imageModal"
+                 data-bs-image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80">
+        </div>
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=60" 
+                 class="img-fluid rounded"
+                 data-bs-toggle="modal" 
+                 data-bs-target="#imageModal"
+                 data-bs-image="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80">
+        </div>
     </div>
-  </section>
+</section>
 
-  <section class="container py-5" id="about">
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body p-0">
+        <img id="modalImage" src="" alt="Gallery Image" class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</div>
+<section class="container py-5" id="about">
     <h2 class="neon-text text-center mb-4">About Nova Academy</h2>
     <p class="fs-5 text-center">Nova Academy is dedicated to delivering high-quality online workshops and training programs focused on AI, Python, and technology skills that shape the future. We empower students and professionals to upgrade their skills with modern tools and industry-level knowledge.</p>
   </section>
@@ -439,31 +466,49 @@
   </div>
   
   <section id="reviews" class="py-5 bg-black text-white">
-    <div class="container">
-      <h2 class="text-center neon-text mb-4">Student Reviews</h2>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card p-3 bg-dark text-white shadow">
-            <p>"Amazing training! Learned Python & AI modeling easily with real examples."</p>
-            <h5>- Arjun Singh</h5>
+  <div class="container">
+    <h2 class="text-center neon-text mb-4">Student Reviews</h2>
+    
+    <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        
+        <div class="carousel-item active">
+          <div class="card p-4 mx-auto bg-dark text-white shadow" style="max-width: 600px;">
+            <i class="bi bi-quote fs-1 text-info mb-2"></i>
+            <p class="fs-5">"Amazing training! Learned Python & AI modeling easily with real examples. The best part was the one-on-one doubt clearing sessions."</p>
+            <h5 class="fw-bold text-end">- Arjun Singh</h5>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card p-3 bg-dark text-white shadow">
-            <p>"Best online workshop experience! Trainers are very supportive."</p>
-            <h5>- Sana Khan</h5>
+        
+        <div class="carousel-item">
+          <div class="card p-4 mx-auto bg-dark text-white shadow" style="max-width: 600px;">
+            <i class="bi bi-quote fs-1 text-info mb-2"></i>
+            <p class="fs-5">"Best online workshop experience! Trainers are very supportive and the course material is up-to-date with industry standards."</p>
+            <h5 class="fw-bold text-end">- Sana Khan</h5>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card p-3 bg-dark text-white shadow">
-            <p>"Great content, modern teaching method, and practical sessions."</p>
-            <h5>- Rohit Mehra</h5>
+        
+        <div class="carousel-item">
+          <div class="card p-4 mx-auto bg-dark text-white shadow" style="max-width: 600px;">
+            <i class="bi bi-quote fs-1 text-info mb-2"></i>
+            <p class="fs-5">"Great content, modern teaching method, and practical sessions. Highly recommended for professionals looking to upskill."</p>
+            <h5 class="fw-bold text-end">- Rohit Mehra</h5>
           </div>
         </div>
       </div>
+      
+      <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      
     </div>
-  </section>
-
+  </div>
+</section>
   <section class="py-5 bg-dark text-white text-center">
     <div class="container">
       <div class="row">
