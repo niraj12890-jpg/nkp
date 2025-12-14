@@ -1,38 +1,41 @@
-// ---------- Search ----------
-document.getElementById('searchBtn').addEventListener('click', function(){
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(!q) return;
-  const all = document.querySelectorAll('.card');
-  all.forEach(item => {
-    item.style.display = item.innerText.toLowerCase().includes(q) ? '' : 'none';
+/* ---------- SEARCH ---------- */
+document.getElementById("searchBtn").addEventListener("click", function () {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(query) ? "" : "none";
   });
 });
 
-// ---------- Popup helpers ----------
-function openPopup(id){ document.getElementById(id).style.display = 'flex'; }
-function closePopup(id){ document.getElementById(id).style.display = 'none'; }
-
-// ---------- Workshop Data ----------
+/* ---------- WORKSHOP DATA ---------- */
 const workshopData = {
   xps: {
     title: "XPS Data Analysis Workshop",
-    img: "XPSIMAGE.png",
-    desc: "Full workshop description..."
+    desc: "Hands-on training on XPS peak fitting, interpretation, and real research examples."
+  },
+  ai: {
+    title: "AI with Python Workshop",
+    desc: "Learn AI fundamentals, Python libraries, and applications in science & engineering."
+  },
+  origin: {
+    title: "OriginPro Training Workshop",
+    desc: "Scientific plotting, curve fitting, and publication-quality graph preparation."
   }
-  // बाकी data SAME रहेगा
 };
 
-// ---------- Open Details ----------
-function openDetails(key){
-  const d = workshopData[key];
-  if(!d) return;
-  document.getElementById('workshopTitle').innerText = d.title;
-  document.getElementById('workshopImg').src = d.img;
-  document.getElementById('workshopDesc').innerText = d.desc;
-  document.getElementById('workshopInfo').style.display = 'flex';
+/* ---------- POPUP FUNCTIONS ---------- */
+function openDetails(key) {
+  const data = workshopData[key];
+  if (!data) return;
+
+  document.getElementById("popupTitle").innerText = data.title;
+  document.getElementById("popupDesc").innerText = data.desc;
+
+  document.getElementById("popup").style.display = "flex";
 }
 
-// ---------- Close ----------
-function closeDetails(){
-  document.getElementById('workshopInfo').style.display = 'none';
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
