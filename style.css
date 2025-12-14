@@ -232,3 +232,22 @@ footer a:hover { color: var(--neon); }
     border: 1px solid rgba(58, 134, 255, 0.2);
     color: #fff;
 }
+/* ---------- Form Validation Visuals (New) ---------- */
+/* Invalid fields should stand out in dark theme */
+.form-control.is-invalid {
+    border-color: #ff4757 !important; /* Bright red border */
+    box-shadow: 0 0 0 0.25rem rgba(255, 71, 87, 0.4) !important; /* Red glow */
+    background-color: var(--card-bg) !important;
+}
+.form-control.is-invalid:focus {
+    /* Maintain the red focus glow */
+    box-shadow: 0 0 0 0.25rem rgba(255, 71, 87, 0.6) !important; 
+}
+/* Optional: Add a subtle animation to make elements pop */
+.card, .trainer-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover, .trainer-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly */
+    box-shadow: 0 10px 20px rgba(58, 134, 255, 0.2); /* Subtle neon shadow on hover */
+}
