@@ -332,22 +332,36 @@
   </footer>
 
   <!-- Enquire & Register popups (kept as-is) -->
-  <div id="enquirePopup" class="popup-overlay">
-    <div class="popup-box" style="max-width:560px;">
-      <h2 class="neon-text mb-3">Enquiry Form</h2>
-      <label class="form-label">Full Name</label>
-      <input type="text" class="form-control mb-2" placeholder="Enter your name">
-      <label class="form-label">Mobile Number</label>
-      <input type="text" class="form-control mb-2" placeholder="Enter mobile number">
-      <label class="form-label">Workshop</label>
-      <select class="form-control mb-3">
-        <option>AI in Mathematical Modeling</option>
-        <option>Python for Data Science</option>
-        <option>Machine Learning Basics</option>
-      </select>
-      <button class="btn btn-neon w-100 mb-3">Submit Enquiry</button>
-      <button class="btn btn-danger w-100" onclick="closePopup('enquirePopup')">Back</button>
-    </div>
+ <div id="enquirePopup" class="popup-overlay">
+    <div class="popup-box" style="max-width:560px;">
+      <form id="enquireForm">         <h2 class="neon-text mb-3">Enquiry Form</h2>
+
+                <label for="enquiryFullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control mb-2" id="enquiryFullName" name="FullName" placeholder="Enter your name" required>
+
+                <label for="enquiryMobileNumber" class="form-label">Mobile Number</label>
+        <input type="tel" class="form-control mb-2" id="enquiryMobileNumber" name="MobileNumber" placeholder="Enter mobile number" required>
+
+                <label for="enquiryWorkshop" class="form-label">Workshop</label>
+        <select class="form-control mb-3" id="enquiryWorkshop" name="Workshop" required>
+          <option value="XPS Data Analysis">XPS Data Analysis</option>
+          <option value="Electrochemical Data Analysis">Electrochemical Data Analysis</option>
+          <option value="OriginPro Training">OriginPro Training</option>
+          <option value="XRD Analysis">XRD Analysis</option>
+          <option value="ChemDraw Workshop">ChemDraw Workshop</option>
+          <option value="DWSIM Simulation">DWSIM Simulation</option>
+          <option value="General Inquiry" selected>General Inquiry</option>
+        </select>
+
+                <button type="submit" class="btn btn-neon w-100 mb-3" id="enquireSubmitBtn">
+          Submit Enquiry
+        </button>
+
+                <button type="button" class="btn btn-danger w-100" onclick="closePopup('enquirePopup')">Back</button>
+
+      </form>
+    </div>
+  </div>
   </div>
 
   <div id="registerPopup" class="popup-overlay">
