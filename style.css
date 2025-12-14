@@ -1,4 +1,4 @@
-/* ---------- Base styles ---------- */
+/* ---------- Root & Base ---------- */
 :root {
   --bg: #020b33;
   --card-bg: #061046;
@@ -7,36 +7,50 @@
 }
 
 body {
-  background-color: var(--bg);
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: #ffffff;
+  font-family: "Poppins", Arial, sans-serif;
   margin: 0;
   padding-top: 70px;
 }
 
+/* ---------- Neon ---------- */
 .neon-text {
-  text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
-  font-weight: 600;
+  text-shadow: 0 0 8px var(--neon), 0 0 16px var(--neon);
 }
 
 .btn-neon {
   background: var(--accent);
+  color: #fff;
   border: none;
   box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-  color: #fff;
+}
+
+.btn-neon:hover {
+  opacity: 0.9;
 }
 
 /* ---------- Navbar ---------- */
-.navbar-brand { letter-spacing: 0.6px; }
+.navbar-brand {
+  letter-spacing: 0.6px;
+}
 
 /* ---------- Search ---------- */
-#search { margin-top: 10px; z-index: 10; }
-#search .input-group { box-shadow: 0 6px 30px rgba(0,0,0,0.6); }
+#searchInput {
+  background: #fff;
+}
+
+marquee {
+  background: #001a66;
+  color: var(--neon);
+  font-weight: 600;
+  font-size: 18px;
+}
 
 /* ---------- Hero ---------- */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,70,0.6)),
-  url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80');
+  background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,70,.65)),
+    url("https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80");
   background-size: cover;
   background-position: center;
   padding: 120px 0;
@@ -46,64 +60,66 @@ body {
 /* ---------- Cards ---------- */
 .card {
   background: var(--card-bg);
-  border: 1px solid rgba(31,63,255,0.25);
-  box-shadow: 0 0 20px rgba(0,102,255,0.12);
-  border-radius: 12px;
+  border: 1px solid rgba(31, 63, 255, 0.25);
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.15);
+  border-radius: 14px;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
-.card .card-img-top {
-  width: 100%;
-  height: 160px;
+.card-img-top {
+  height: 180px;
   object-fit: cover;
-  border-radius: 10px;
 }
 
 .card-body {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  padding:16px;
+  display: flex;
+  flex-direction: column;
 }
 
-.card .btn { margin-top: auto; }
-
-#workshops .col-md-4 { display: flex; }
-#workshops .col-md-4 > .card { flex: 1; }
+.card h5 {
+  font-weight: 600;
+}
 
 /* ---------- Popup ---------- */
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,40,0.92);
+  background: rgba(0, 0, 40, 0.92);
   backdrop-filter: blur(5px);
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 999999;
+  z-index: 99999;
   padding: 20px;
 }
 
 .popup-box {
   background: var(--card-bg);
-  width: 100%;
-  max-width: 1000px;
-  max-height: 92vh;
-  overflow-y: auto;
   border: 2px solid var(--neon);
   border-radius: 12px;
-  padding: 22px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
 }
 
-/* ---------- Animations ---------- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ---------- WhatsApp Floating ---------- */
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #25d366;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 15px #25d366;
+  z-index: 9999;
 }
-@keyframes zoomIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+
+.whatsapp-float:hover {
+  color: #fff;
+  opacity: 0.9;
 }
