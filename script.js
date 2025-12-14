@@ -1,11 +1,6 @@
 // Ensure this is your deployed Web App URL from Google Apps Script
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuqLR5rTuifEo0iyrfnqCMSXW6n9z-r9NDSl9DHsYuci2TliXpoAdY_KCTL2Uh_aGprg/exec';
 
-// --- Cleanup: Removing old submission logic ---
-// REMOVED: const SCRIPT_URL = "..." 
-// REMOVED: function submitEnquiry(){...} 
-// REMOVED: function submitRegistration(){...}
-
 // ---------- Search logic ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -33,8 +28,8 @@ function closePopup(id){
     const popup = document.getElementById(id);
     if(popup) popup.style.display = 'none';
 }
-window.openPopup = openPopup; // Expose to HTML buttons
-window.closePopup = closePopup; // Expose to HTML buttons
+window.openPopup = openPopup;
+window.closePopup = closePopup;
 
 // ---------- Workshop detailed data ----------
 const workshopData = {
@@ -72,9 +67,7 @@ function openDetails(key){
             }
         }
     };
-    // Update Enquiry Select (enquiryWorkshop)
     updateSelect('enquiryWorkshop'); 
-    // Update Register Select (regWorkshop)
     updateSelect('regWorkshop'); 
 
     // WhatsApp auto message
@@ -82,20 +75,18 @@ function openDetails(key){
         `Hello Nova Academy 👋\nमैं *${data.title}* workshop में interested हूँ।\nPlease details, fees & schedule share करें।`
     );
     document.getElementById("popupWhatsappBtn").href = `https://wa.me/919598183089?text=${msg}`;
-    // Optionally update the floating WhatsApp link as well if you want it context-aware
-    // document.getElementById("whatsappLink").href = `https://wa.me/919598183089?text=${msg}`;
 }
-window.openDetails = openDetails; // Expose to HTML buttons
+window.openDetails = openDetails;
 
 function closeDetails(){
     document.getElementById('workshopInfo').style.display = 'none';
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
 }
-window.closeDetails = closeDetails; // Expose to HTML buttons
+window.closeDetails = closeDetails;
 
 
-// Close popup on outside click and Escape key (Your original working logic)
+// Close popup on outside click and Escape key 
 document.addEventListener('click', function(e){
     const overlayIds = ['workshopInfo','enquirePopup','registerPopup'];
     overlayIds.forEach(id => {
@@ -115,15 +106,10 @@ document.addEventListener("keydown", function(e){
 });
 
 
-// ---------- Counters (Your original working logic) ----------
-// I've kept your simplified counter logic here, though the one in DOMContentLoaded block below is better
-// document.querySelectorAll('.counter').forEach(counter => { ... }); 
-
-
-// ---------- DOMContentLoaded: Form Submission Logic ----------
+// ---------- DOMContentLoaded: Form Submission Logic and Counters ----------
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Counter Logic (Better, as it runs once DOM is ready) ---
+    // --- Counter Logic ---
     const counters = document.querySelectorAll('.counter');
     const speed = 200; 
 
@@ -151,9 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(counter);
     });
 
-    // --- 1. Enquiry Form Submission Logic (Modified to use new HTML IDs and final logic) ---
+    // --- 1. Enquiry Form Submission Logic ---
     const enquireForm = document.getElementById('enquireForm');
-    const enquireSubmitBtn = document.getElementById('enquireSubmitBtn'); // Ensure this ID exists in HTML
+    const enquireSubmitBtn = document.getElementById('enquireSubmitBtn'); 
 
     if (enquireForm && GOOGLE_SHEET_URL.startsWith('http')) {
         enquireForm.addEventListener('submit', async function(e) {
@@ -164,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(this);
             const data = {};
-            // Convert FormData to object for URLSearchParams
             formData.forEach((value, key) => (data[key] = value));
 
             try {
@@ -172,9 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded', // Required for Apps Script POST
+                        'Content-Type': 'application/x-www-form-urlencoded', 
                     },
-                    body: new URLSearchParams(data).toString(), // Correct format
+                    body: new URLSearchParams(data).toString(), 
                 });
 
                 const result = await response.json();
@@ -196,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. Registration Form Submission Logic (Final Logic) ---
+    // --- 2. Registration Form Submission Logic ---
     const registerForm = document.getElementById('registerForm');
     const registerSubmitBtn = document.getElementById('registerSubmitBtn'); 
 
