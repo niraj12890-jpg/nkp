@@ -1,1 +1,104 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOVA ACADEMY</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold neon-text fs-4" href="#">NOVA ACADEMY</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Workshops</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#" onclick="openDetails('xps')">XPS Analysis</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openDetails('electro')">Electrochemical</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openDetails('origin')">OriginPro</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openDetails('xrd')">XRD</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openDetails('chemdraw')">ChemDraw</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openDetails('dwsim')">DWSIM</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item ms-2">
+          <a class="btn btn-neon px-3" href="#contact">Enquire</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section id="home" class="hero">
+  <div class="container text-center">
+    <h1 class="display-4 neon-text">Welcome to Nova Academy</h1>
+    <p>Empowering Students with AI, Python & Research Tools</p>
+    <a href="#workshops" class="btn btn-neon btn-lg">Join Workshops</a>
+  </div>
+</section>
+
+<!-- ================= WORKSHOPS ================= -->
+<section id="workshops" class="container py-5">
+  <h2 class="text-center neon-text mb-5">Upcoming Workshops</h2>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card">
+        <img src="images/XPSIMAGE.png" class="card-img-top">
+        <div class="card-body">
+          <h4>XPS Data Analysis</h4>
+          <p>Surface chemistry & peak fitting</p>
+          <button class="btn btn-primary w-100" onclick="openDetails('xps')">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POPUP ================= -->
+<div class="popup-overlay" id="workshopInfo">
+  <div class="popup-box">
+    <h3 id="workshopTitle" class="neon-text"></h3>
+    <img id="workshopImg" class="popup-img">
+    <div id="workshopDesc"></div>
+
+    <a id="popupWhatsappBtn" target="_blank" class="btn btn-success w-100 mt-3">
+      WhatsApp Enquiry
+    </a>
+
+    <button class="btn btn-danger w-100 mt-3" onclick="closeDetails()">Close</button>
+  </div>
+</div>
+
+<!-- Floating WhatsApp -->
+<a id="whatsappLink" href="https://wa.me/919598183089" target="_blank" class="whatsapp-float">
+  <img src="images/whatsapp.png" width="55">
+</a>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="script.js"></script>
+</body>
+</html>
