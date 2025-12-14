@@ -74,14 +74,23 @@ scrollToTopBtn.addEventListener('click', () => {
 });
 
 // ---------- Workshop detailed data (No change needed) ----------
+// ---------- Workshop detailed data (UPDATED: Match with index.html fees) ----------
 const workshopData = {
     xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
-    electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Weeks\nMode: Online\nFees: ₹ 3999." },
-    origin: { title:"OriginPro Graphing & Data Analysis", img:"images/w3.png", pdf:"#", desc:"Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2499." },
-    xrd: { title:"XRD Data Analysis Workshop", img:"images/w4.png", pdf:"#", desc:"Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
-    chemdraw: { title:"ChemDraw Hands-on Training", img:"images/w5.png", pdf:"#", desc:"Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 1999." },
-    dwsim: { title:"DWSIM Chemical Simulation", img:"images/w6.png", pdf:"#", desc:"Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." }
+    // Fees updated to 2500 (from 3999) - Based on index.html: ₹ 2500
+    electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Week\nMode: Online\nFees: ₹ 2500." }, 
+    // Fees updated to 2000 (from 2499) - Based on index.html: ₹ 2000
+    origin: { title:"OriginPro Graphing & Data Analysis", img:"images/w3.png", pdf:"#", desc:"Peak analysis, curve fitting, batch processing & publication-ready graphs.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2000." },
+    // Fees updated to 2000 (from 2999) - Based on index.html: ₹ 2000
+    xrd: { title:"XRD Data Analysis Workshop", img:"images/w4.png", pdf:"#", desc:"Rietveld refinement, peak indexing & crystal structure analysis.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2000." }, 
+    // Fees updated to 4500 (from 1999) - Based on index.html: ₹ 4500
+    chemdraw: { title:"ChemDraw Hands-on Training", img:"images/w5.png", pdf:"#", desc:"Draw chemical structures, reactions, stereochemistry & export HD images.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 4500." },
+    // Fees updated to 5000 (from 2999) - Based on index.html: ₹ 5000
+    dwsim: { title:"DWSIM Chemical Simulation", img:"images/w6.png", pdf:"#", desc:"Process simulation: reactors, distillation, heat exchangers & flowsheets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 5000." }
 };
+
+function openDetails(key){
+// ... rest of the function remains the same ...
 
 function openDetails(key){
     const data = workshopData[key];
@@ -190,7 +199,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (form && GOOGLE_SHEET_URL.startsWith('http')) {
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
+                e.preventDefault();
+            
+            // --- NEW: Basic Form Validation Check ---
+            let isValid = true;
+            this.querySelectorAll('[required]').forEach(input => {
+                input.classList.remove('is-invalid'); // Clear previous invalid state
+                if (!input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                }
+                // Basic format checks (can be expanded)
+                if (input.type === 'email' && !input.value.includes('@')) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                }
+            });
 
+            if (!isValid) {
+                alert('⚠️ Please fill out all required fields correctly.');
+                return; // Stop execution if form is invalid
+            }
+            // --- END: Form Validation Check ---
+
+            submitBtn.disabled = true;
+// ... rest of the function continues from here ...
                 submitBtn.disabled = true;
                 // Add loading spinner for modern UX
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
