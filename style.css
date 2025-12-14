@@ -137,3 +137,16 @@ footer a:hover { color: var(--neon); }
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* New style to highlight fee/duration (Step 1.1) */
+.card-highlight {
+    /* Neon background, dark text for contrast */
+    background-color: var(--neon); 
+    color: var(--bs-dark);
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    display: inline-block;
+    margin-right: 8px;
+    margin-top: 10px; /* Space below title */
+}
