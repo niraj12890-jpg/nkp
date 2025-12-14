@@ -273,3 +273,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// script.js (continued, inside DOMContentLoaded)
+
+    // 4. Registration Form Submission Logic (NEW)
+    const registerForm = document.getElementById('registerForm');
+    const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+
+    if (registerForm && GOOGLE_SHEET_URL.startsWith('http')) {
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            registerSubmitBtn.disabled = true;
+            registerSubmitBtn.textContent = 'Submitting...';
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => (data[key] = value));
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data).toString(),
+                });
+
+                const result = await response.json();
+
+                if (result.result === 'success') {
+                    alert('🎉 Registration Successful! We are verifying your payment (UTR: ' + data.UTR_ID + '). Confirmation will be sent via email.');
+                    this.reset(); // Clear the form
+                    closePopup('registerPopup');
+                } else {
+                    alert('❌ Registration Failed! Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Registration Submission Error:', error);
+                alert('❌ An error occurred during registration. Please check console.');
+            } finally {
+                registerSubmitBtn.disabled = false;
+                registerSubmitBtn.textContent = 'Submit Registration & Payment';
+            }
+        });
+    }
