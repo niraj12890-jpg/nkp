@@ -338,3 +338,103 @@ footer a:hover { color: var(--neon); }
     visibility: visible;
     transform: translateY(-5px);
 }
+/* ---------- Testimonials (Student Review) Styles (CAROUSEL & NAVIGATION) ---------- */
+
+/* New Section Background */
+.testimonials-section {
+    background-color: var(--card-bg); /* Light background for separation */
+    padding: 60px 0;
+}
+
+/* Base Card Style (Retained from previous step) */
+.testimonial-card {
+    background: var(--bg); /* Pure white background for review card */
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    /* Set height/min-height based on your content */
+    min-height: 280px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.1);
+}
+
+.review-text {
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.05em;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+
+.student-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid var(--neon); 
+}
+
+.student-name {
+    font-weight: 700;
+    color: var(--neon);
+    margin: 0;
+}
+
+.student-course {
+    font-size: 0.9em;
+    color: #6c757d; 
+    margin: 0;
+}
+
+/* --- Carousel Customization (Arrow Styles) --- */
+
+/* Hide the default Bootstrap Icon (if any) and use font icon or custom SVG */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    /* Hide default icon */
+    background-image: none; 
+    font-size: 2rem;
+    width: auto;
+    height: auto;
+}
+
+/* Style the custom arrow elements (like <i> or <span> elements in HTML) */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(13, 110, 253, 0.9); /* Darker blue background */
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: 0.3s;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+    background-color: var(--neon); /* Full neon on hover */
+}
+
+/* Style the actual arrow icon (using a font icon like Font Awesome or Bootstrap Icons) */
+.carousel-control-prev i,
+.carousel-control-next i {
+    color: #fff; /* White arrow color */
+}
