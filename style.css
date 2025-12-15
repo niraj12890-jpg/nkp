@@ -1,9 +1,15 @@
-/* ---------- Base styles (LIGHT THEME) ---------- */
+/*
+ * NOVAACADEMY - Optimized Light Theme CSS
+ * Changes: Switched to light background for readability.
+ * Accent color is retained as primary blue.
+ */
+
+/* ---------- Base styles ---------- */
 :root {
     /* Light Mode Colors */
     --bg: #ffffff; /* Pure White background */
-    --card-bg: #f5f8ff; /* Very Light Blue/Grey for cards */
-    --neon: #0d6efd; /* Primary Accent Blue (Used for highlights/focus) */
+    --card-bg: #f5f8ff; /* Very Light Blue/Grey for cards/sections */
+    --neon: #0d6efd; /* Primary Accent Blue (NovaAcademy Theme Color) */
     --accent: #0d6efd; /* Same as neon for consistency */
     --text-dark: #1a202c; /* Dark text for high contrast */
     --border-light: #dfe4f1; /* Light border color */
@@ -15,23 +21,21 @@ body {
     margin: 0;
     padding-top: 70px; /* space for fixed navbar */
 }
-.neon-text {
-    /* Use primary blue as accent color */
-    color: var(--neon); 
-    /* Subtle shadow, not full glow, for clean light look */
-    text-shadow: 0 0 3px rgba(13, 110, 253, 0.5); 
-    font-weight: 700;
-}
-
 /* Ensure headings/other elements use dark text unless specified */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-dark);
 }
-
+.neon-text {
+    /* Use primary blue as accent color */
+    color: var(--neon); 
+    /* Subtle shadow for clean light look */
+    text-shadow: 0 0 3px rgba(13, 110, 253, 0.5); 
+    font-weight: 700;
+}
 .btn-neon {
     background: var(--accent);
     border: none;
-    /* Subtle shadow for 3D lift, not extreme glow */
+    /* Subtle shadow for 3D lift */
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
     color: #fff;
     font-weight: 600;
@@ -51,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .navbar-brand { 
     letter-spacing: 0.6px;
-    color: var(--text-dark) !important; /* Navbar text is dark */
+    color: var(--text-dark) !important; /* Navbar brand text is dark */
 }
 .navbar-nav .nav-link {
     color: var(--text-dark) !important;
@@ -59,7 +63,6 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-nav .nav-link:hover {
     color: var(--neon) !important;
 }
-
 
 /* ---------- Search ---------- */
 #search {
@@ -74,16 +77,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------- Hero ---------- */
 .hero {
-    /* Background image kept, but overlay adjusted for light mode contrast */
+    /* Adjusted overlay for light mode contrast */
     background: linear-gradient(rgba(255,255,255,0.85), rgba(240,245,255,0.7)), url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80');
     background-size: cover;
     background-position: center;
     padding: 120px 0;
     text-align: center;
-    color: var(--text-dark); /* Ensure text is dark on light overlay */
+    color: var(--text-dark); 
 }
-.hero h1 { color: var(--neon); } /* Highlight hero heading */
-
+.hero h1 { color: var(--neon); } 
 
 /* ---------- Cards (Workshops & Trainers) ---------- */
 .card {
@@ -98,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover, .trainer-card:hover { 
-    transform: translateY(-5px); /* Lift the card slightly */
+    transform: translateY(-5px); 
     box-shadow: 0 12px 25px rgba(13, 110, 253, 0.15); /* Subtle blue shadow on hover */
     border-color: rgba(13, 110, 253, 0.4);
 }
@@ -108,16 +110,20 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover;
     border-radius: 12px 12px 0 0;
 }
-.card-body { display:flex; flex-direction:column; gap:10px; padding:16px; }
+.card-body { 
+    display:flex; 
+    flex-direction:column; 
+    gap:10px; 
+    padding:16px; 
+}
 .card .btn { margin-top: auto; }
 
 /* equal card height */
 #workshops .col-md-4 { display: flex; }
 #workshops .col-md-4 > .card { flex: 1; }
 
-/* Highlight Fee/Duration (Retains Neon look for high contrast) */
+/* Highlight Fee/Duration */
 .card-highlight {
-    /* Neon background, white text for contrast */
     background-color: var(--neon); 
     color: #fff; /* White text on blue highlight */
     font-weight: bold;
@@ -126,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9em;
     display: inline-block;
     margin-right: 8px;
-    margin-top: 10px; /* Space below title */
+    margin-top: 10px; 
 }
 
 /* ---------- Trainer Card Styles ---------- */
@@ -136,6 +142,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     height: 100%;
     border-radius: 12px;
+    text-align: center; /* Added for better centering of content */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .trainer-img {
@@ -143,28 +150,32 @@ h1, h2, h3, h4, h5, h6 {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto;
-    border: 4px solid var(--neon); /* Neon border retained */
+    margin: 0 auto 15px auto; /* Added bottom margin */
+    border: 4px solid var(--neon); 
 }
 .social-icons a i {
     font-size: 1.5em;
-    color: var(--text-dark); /* Default icon color is dark */
+    color: var(--text-dark); 
     transition: transform 0.2s, color 0.2s;
 }
 .social-icons a:hover i {
     transform: scale(1.2);
-    color: var(--neon); /* Neon on hover */
+    color: var(--neon); 
 }
 
 /* ---------- Counter Section Styles ---------- */
+.counter-section {
+    background-color: var(--card-bg); /* Use light grey background for section */
+    padding: 40px 0;
+}
 .counter {
     font-size: 3rem;
     font-weight: bold;
-    color: var(--neon); /* Counter is still neon blue */
+    color: var(--neon); 
     text-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
 }
 
-/* ---------- Popup (Light Theme adaptation) ---------- */
+/* ---------- Popup (Modal) Styles ---------- */
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -186,11 +197,11 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 1000px;
     max-height: 92vh;
     overflow-y: auto;
-    border: 2px solid var(--neon); /* Neon border retained */
+    border: 2px solid var(--neon); 
     box-shadow: 0 0 30px rgba(13,110,253,0.18);
     border-radius: 12px;
     padding: 22px;
-    color: var(--text-dark); /* Dark text */
+    color: var(--text-dark); 
     animation: zoomIn 0.3s ease;
     position: relative;
 }
@@ -202,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 360px;
 }
 
-/* ---------- Gallery Image Styles (NEW) ---------- */
+/* ---------- Gallery Image Styles ---------- */
 #gallery img {
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -262,6 +273,7 @@ h1, h2, h3, h4, h5, h6 {
     #search { margin-top: 8px; padding-left: 8px; padding-right: 8px; }
     .counter { font-size: 2rem; }
     
+    /* Ensure equal height on mobile is disabled */
     #workshops .col-md-4 { display: block; }
     #workshops .col-md-4 > .card { flex: none; margin-bottom: 20px; }
 }
@@ -270,15 +282,20 @@ h1, h2, h3, h4, h5, h6 {
 marquee {
     display: block;
     padding-top: 8px;
+    background-color: var(--card-bg); /* Use light grey background */
+    color: var(--text-dark);
 }
 
 /* ---------- Footer ---------- */
-footer { background-color: var(--card-bg); /* Footer slightly grey */ }
+footer { 
+    background-color: var(--card-bg); /* Footer slightly grey */ 
+    padding-top: 20px;
+}
 footer a,
 footer p { color: var(--text-dark); }
 footer a:hover { color: var(--neon); }
 
-/* ---------- Popup Animations (Kept same) ---------- */
+/* ---------- Popup Animations ---------- */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -287,13 +304,13 @@ footer a:hover { color: var(--neon); }
     from { transform: scale(0.85); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
-/* ---------- Scroll to Top Button (Updated for Light Theme) ---------- */
+/* ---------- Scroll to Top Button ---------- */
 .scroll-to-top {
     position: fixed;
     bottom: 140px; 
     right: 20px;
-    background: var(--neon); /* Neon retained */
-    color: #fff; /* White text on blue button */
+    background: var(--neon); 
+    color: #fff; 
     width: 45px;
     height: 45px;
     border-radius: 50%;
