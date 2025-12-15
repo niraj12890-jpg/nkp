@@ -13,6 +13,7 @@
     --accent: #0d6efd; /* Same as neon for consistency */
     --text-dark: #1a202c; /* Dark text for high contrast */
     --border-light: #dfe4f1; /* Light border color */
+    --red-close: #dc3545; /* Red color for Close button */
 }
 body {
     background-color: var(--bg);
@@ -48,20 +49,24 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--accent);
 }
 
-/* ---------- Navbar ---------- */
+/* ---------- Navbar (MODIFIED: Neon Background) ---------- */
 .navbar {
-    background-color: var(--bg) !important; /* Navbar is white */
+    /* CHANGED: Neon Blue background for high visibility */
+    background-color: var(--neon) !important; 
     border-bottom: 1px solid var(--border-light);
 }
 .navbar-brand { 
     letter-spacing: 0.6px;
-    color: var(--text-dark) !important; /* Navbar brand text is dark */
+    /* CHANGED: White text on neon background */
+    color: #fff !important; 
 }
 .navbar-nav .nav-link {
-    color: var(--text-dark) !important;
+    /* CHANGED: White text on neon background */
+    color: #fff !important; 
 }
 .navbar-nav .nav-link:hover {
-    color: var(--neon) !important;
+    /* Slightly lighter blue on hover */
+    color: rgba(255, 255, 255, 0.7) !important; 
 }
 
 /* ---------- Search ---------- */
@@ -143,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px; 
 }
 
-/* ---------- Trainer Card Styles (FIXED CENTERING) ---------- */
+/* ---------- Trainer Card Styles (MODIFIED: Name Color) ---------- */
 .trainer-card {
     background: var(--card-bg); 
     border: 1px solid var(--border-light);
@@ -153,6 +158,12 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center; 
     padding: 20px; 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* CHANGED: Trainer Name text color visibility badhane ke liye */
+.trainer-card h5 {
+    color: var(--neon) !important; 
+    font-weight: 700;
+    text-shadow: 0 0 3px rgba(13, 110, 253, 0.4); 
 }
 .trainer-img {
     width: 120px;
@@ -184,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
 }
 
-/* ---------- Popup (Modal) Styles ---------- */
+/* ---------- Popup (Modal) Styles (MODIFIED: Size & Close Button) ---------- */
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -203,7 +214,8 @@ h1, h2, h3, h4, h5, h6 {
 .popup-box {
     background: var(--bg); /* White background for popup */
     width: 100%;
-    max-width: 1000px;
+    /* CHANGED: Popup ki max-width ko aur bada kiya (1000px se 1200px) */
+    max-width: 1200px; 
     max-height: 92vh;
     overflow-y: auto;
     border: 2px solid var(--neon); 
@@ -221,6 +233,28 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 14px;
     max-height: 360px;
 }
+/* CHANGED: Close button (X) ka color red kiya gaya */
+.popup-box .btn-close {
+    background: transparent;
+    opacity: 1;
+    color: var(--red-close); /* Red color variable use kiya */
+    font-size: 1.5rem; /* Icon size badhaya */
+    font-weight: bold;
+    filter: none;
+    transition: color 0.2s;
+}
+.popup-box .btn-close:hover {
+    color: #ff0000;
+}
+/* White close button ko override kiya, ab red dikhega */
+.btn-close-white {
+    filter: invert(1); /* Invert filter ko remove kiya ya adjust kiya */
+    color: var(--red-close) !important; 
+}
+.btn-close-white:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 71, 87, 0.4);
+}
+
 
 /* ---------- Gallery Image Styles ---------- */
 #gallery img {
@@ -287,12 +321,14 @@ h1, h2, h3, h4, h5, h6 {
     #workshops .col-md-4 > .card { flex: none; margin-bottom: 20px; }
 }
 
-/* ---------- Marquee ---------- */
+/* ---------- Marquee (MODIFIED: Background and Text Color) ---------- */
 marquee {
     display: block;
     padding-top: 8px;
-    background-color: var(--card-bg); 
-    color: var(--text-dark);
+    /* CHANGED: Background Neon Blue */
+    background-color: var(--neon) !important; 
+    /* CHANGED: Text White for visibility */
+    color: #fff !important; 
 }
 
 /* ---------- Footer ---------- */
