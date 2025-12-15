@@ -308,26 +308,24 @@ document.addEventListener('DOMContentLoaded', () => {
         'enquireForm',
         'enquireSubmitBtn',
         '✅ Enquiry Submitted! We will contact you shortly.',
-        () => {
-    const f = document.getElementById("enquireForm");
+        (formData) => {
+
+    const msg =
+        "Hello Nova Academy 👋\n" +
+        "📩 New Enquiry\n" +
+        "👤 Name: " + formData.Name + "\n" +
+        "📧 Email: " + formData.Email + "\n" +
+        "📱 Phone: " + formData.Phone + "\n" +
+        "🎯 Workshop: " + formData.Workshop_Interest;
 
     setTimeout(() => {
         if (confirm("Form submit ho gaya hai ✅\nKya aap WhatsApp par enquiry bhejna chahte ho?")) {
-
-            const msg =
-                "Hello Nova Academy 👋%0A" +
-                "📩 New Enquiry%0A" +
-                "👤 Name: " + f.Name.value + "%0A" +
-                "📧 Email: " + f.Email.value + "%0A" +
-                "📱 Phone: " + f.Phone.value + "%0A" +
-                "🎯 Workshop: " + f.Workshop_Interest.value;
-
             window.open(
-                "https://wa.me/919598183089?text=" + msg,
+                "https://wa.me/919598183089?text=" + encodeURIComponent(msg),
                 "_blank"
             );
         }
-    }, 1000); // 1 second delay – Google Sheet safe
+    }, 1000);
 }
     );
 
