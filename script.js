@@ -152,7 +152,7 @@ document.addEventListener("keydown", function(e){
 // ---------- WhatsApp Notification Logic after Registration (Global Function) ----------
 function sendRegistrationWhatsapp(data) {
     // Note: Workshop_Interest is the correct name from the form (not Workshop_Registered)
-    const workshopName = data.Workshop_Interest || 'N/A'; 
+    const workshopName = data.workshop_Registered || data.Workshop_Interest || 'N/A'; 
     const utrId = data.UTR_ID || 'N/A';
     const userName = data.Name || 'A user';
     const userPhone = data.Phone || 'N/A';
