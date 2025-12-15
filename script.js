@@ -308,7 +308,27 @@ document.addEventListener('DOMContentLoaded', () => {
         'enquireForm',
         'enquireSubmitBtn',
         '✅ Enquiry Submitted! We will contact you shortly.',
-        () => {} // No popup to close, as form is on main page
+        () => {
+    const f = document.getElementById("enquireForm");
+
+    setTimeout(() => {
+        if (confirm("Form submit ho gaya hai ✅\nKya aap WhatsApp par enquiry bhejna chahte ho?")) {
+
+            const msg =
+                "Hello Nova Academy 👋%0A" +
+                "📩 New Enquiry%0A" +
+                "👤 Name: " + f.Name.value + "%0A" +
+                "📧 Email: " + f.Email.value + "%0A" +
+                "📱 Phone: " + f.Phone.value + "%0A" +
+                "🎯 Workshop: " + f.Workshop_Interest.value;
+
+            window.open(
+                "https://wa.me/919598183089?text=" + msg,
+                "_blank"
+            );
+        }
+    }, 1000); // 1 second delay – Google Sheet safe
+}
     );
 
     // --- 2. Registration Form Submission Logic ---
