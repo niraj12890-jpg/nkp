@@ -3,402 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaAcademy - Premier Workshops & Training</title>
+    <title>Nova Academy - Workshops & Training</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <marquee behavior="scroll" direction="left" scrollamount="6">
-        🌟 Admissions Open for Summer Workshop 2025! Limited Seats available. Enroll Now! 🌟
-    </marquee>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: var(--bg); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">NOVAACADEMY</a>
+            <a class="navbar-brand neon-text" href="#">🚀 Nova Academy</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#hero">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#workshops">Workshops</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#trainers">Trainers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#workshops">Workshops</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#training">Trainers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-neon py-0 px-3 ms-2" onclick="openPopup('registerPopup')" href="#">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main>
-        <section id="hero" class="hero">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h1 class="display-3 mb-3 fw-bold">Learn Future-Ready Skills with <span class="neon-text">NovaAcademy</span></h1>
-                        <p class="lead mb-4 text-dark">
-                            Expert-led workshops in AI, Web Development, and Data Science. Start your journey today!
-                        </p>
-                        <a href="#workshops" class="btn btn-neon btn-lg me-3">Explore Workshops</a>
-                        <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enquiryModal">General Enquiry</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="search" class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="input-group">
-                        <input type="text" class="form-control form-control-lg" placeholder="Search for a workshop (e.g., 'Python', 'AI')">
-                        <button class="btn btn-neon btn-lg" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="counter-section text-center py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="counter" data-target="5000">0</div>
-                        <p class="text-secondary fw-semibold">Students Trained</p>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="counter" data-target="15">0</div>
-                        <p class="text-secondary fw-semibold">Expert Trainers</p>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="counter" data-target="22">0</div>
-                        <p class="text-secondary fw-semibold">Workshops Offered</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="workshops" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 fw-bold"><span class="neon-text">Featured</span> Workshops</h2>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="card workshop-card" data-workshop-id="PDS101">
-                            <img src="https://images.unsplash.com/photo-1549490159-c29188e99991?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDR8fHB5dGhvbiUyMGRhdGElMjBzY2llbmNlfGVufDB8fHx8MTY3Mjc5MTc4MQ&ixlib=rb-1.2.1&q=80&w=1080" class="card-img-top" alt="Python for Data Science">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Python for Data Science</h5>
-                                <p class="card-text text-secondary">Master Python libraries (Pandas, NumPy) for data analysis and visualization.</p>
-                                <div>
-                                    <span class="card-highlight">Fee: ₹9,999</span>
-                                    <span class="card-highlight">Duration: 6 Weeks</span>
-                                </div>
-                                <button class="btn btn-neon mt-auto register-btn" data-workshop="Python for Data Science" type="button">Register Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="card workshop-card" data-workshop-id="AWD202">
-                            <img src="https://images.unsplash.com/photo-1547439366-c956cc587637?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fHdlYiUyMGRldmVsb3BtZW50JTIwY29kZSUyMGZyb250ZW5kJTIwYmFja2VuZHxlbnwwfHx8fDE2NzM3MjA0NDY&ixlib=rb-1.2.1&q=80&w=1080" class="card-img-top" alt="MERN Stack">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Advanced Web Development (MERN)</h5>
-                                <p class="card-text text-secondary">Build scalable full-stack applications using MongoDB, Express, React, and Node.js.</p>
-                                <div>
-                                    <span class="card-highlight">Fee: ₹14,999</span>
-                                    <span class="card-highlight">Duration: 10 Weeks</span>
-                                </div>
-                                <button class="btn btn-neon mt-auto register-btn" data-workshop="Advanced Web Development (MERN)" type="button">Register Now</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card workshop-card" data-workshop-id="MLT303">
-                            <img src="https://images.unsplash.com/photo-1555212697-3929427b3d0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fG1hY2hpbmUlMjBsZWFybmluZyUyMHByb2dyYW1taW5nfGVufDB8fHx8MTY3MzcyMDc0Mw&ixlib=rb-1.2.1&q=80&w=1080" class="card-img-top" alt="Machine Learning">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Machine Learning with TensorFlow</h5>
-                                <p class="card-text text-secondary">Deep dive into Neural Networks, CNNs, and NLP using the TensorFlow framework.</p>
-                                <div>
-                                    <span class="card-highlight">Fee: ₹19,999</span>
-                                    <span class="card-highlight">Duration: 12 Weeks</span>
-                                </div>
-                                <button class="btn btn-neon mt-auto register-btn" data-workshop="Machine Learning with TensorFlow" type="button">Register Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
-        
-        <section id="trainers" class="py-5 bg-light">
-            <div class="container">
-                <h2 class="text-center mb-5 fw-bold"><span class="neon-text">Meet</span> Our Expert Trainers</h2>
-                <div class="row g-4 text-center">
-                    
-                    <div class="col-md-4 col-sm-6">
-                        <div class="trainer-card">
-                            <img src="https://i.pravatar.cc/120?img=68" alt="Trainer Image" class="trainer-img">
-                            <h5>Rajesh Sharma</h5>
-                            <p class="text-secondary mb-3">AI & Data Science Lead</p>
-                            <p class="small text-muted">10+ years experience in deep learning models and predictive analytics.</p>
-                            <div class="social-icons">
-                                <a href="#" class="me-3"><i class="fab fa-linkedin"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                        <div class="trainer-card">
-                            <img src="https://i.pravatar.cc/120?img=49" alt="Trainer Image" class="trainer-img">
-                            <h5>Priya Varma</h5>
-                            <p class="text-secondary mb-3">Full-Stack Development Expert</p>
-                            <p class="small text-muted">Certified MERN stack developer, focused on building robust web architecture.</p>
-                            <div class="social-icons">
-                                <a href="#" class="me-3"><i class="fab fa-linkedin"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6">
-                        <div class="trainer-card">
-                            <img src="https://i.pravatar.cc/120?img=52" alt="Trainer Image" class="trainer-img">
-                            <h5>Akash Singh</h5>
-                            <p class="text-secondary mb-3">Cloud & DevOps Specialist</p>
-                            <p class="small text-muted">Specializes in AWS, Kubernetes, and CI/CD pipelines for large-scale applications.</p>
-                            <div class="social-icons">
-                                <a href="#" class="me-3"><i class="fab fa-linkedin"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 fw-bold"><span class="neon-text">Campus</span> Gallery</h2>
-                <div class="row g-4">
-                    <div class="col-md-4 col-sm-6">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDExfHx3b3Jrc2hvcCUyMGNsYXNzcm9vbXxlbnwwfHx8fDE2NzM3MjE0NDI&ixlib=rb-1.2.1&q=80&w=1080" class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDExfHx3b3Jrc2hvcCUyMGNsYXNzcm9vbXxlbnwwfHx8fDE2NzM3MjE0NDI&ixlib=rb-1.2.1&q=80&w=1200" alt="Workshop Classroom">
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375cd94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDR8fGNvZGVycyUyMHdvcmtpbmclMjB0ZWFtfGVufDB8fHx8MTY3Mzc1MTAyMA&ixlib=rb-1.2.1&q=80&w=1080" class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="https://images.unsplash.com/photo-1521737711867-e3b97375cd94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDR8fGNvZGVycyUyMHdvcmtpbmclMjB0ZWFtfGVufDB8fHx8MTY3Mzc1MTAyMA&ixlib=rb-1.2.1&q=80&w=1200" alt="Group Coding Session">
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <img src="https://images.unsplash.com/photo-1523240795603-837e4b50c007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGdyb3VwJTIwc3R1ZHklMjBvZmZpY2V8ZW58MHx8fHwxNjczNzUxMTUx&ixlib=rb-1.2.1&q=80&w=1080" class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="https://images.unsplash.com/photo-1523240795603-837e4b50c007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGdyb3VwJTIwc3R1ZHklMjBvZmZpY2V8ZW58MHx8fHwxNjczNzUxMTUx&ixlib=rb-1.2.1&q=80&w=1200" alt="Mentorship Session">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="testimonials" class="testimonials-section">
-            <div class="container py-5">
-                <h2 class="text-center mb-5 fw-bold"><span class="neon-text">Student</span> Reviews</h2>
-                
-                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        
-                        <div class="carousel-item active">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="testimonial-card">
-                                        <p class="review-text">"The MERN stack workshop was incredibly detailed and practical. I landed my first job as a full-stack developer right after completing the course. Highly recommend NovaAcademy!"</p>
-                                        <div class="student-info">
-                                            <img src="https://i.pravatar.cc/150?img=33" alt="Student 1" class="student-img">
-                                            <div>
-                                                <p class="student-name">Anjali Das</p>
-                                                <p class="student-course">Advanced Web Development (MERN)</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="testimonial-card">
-                                        <p class="review-text">"The Python for Data Science course exceeded my expectations. The trainers are experts, and the curriculum is very industry-relevant. My analytical skills improved immensely."</p>
-                                        <div class="student-info">
-                                            <img src="https://i.pravatar.cc/150?img=17" alt="Student 2" class="student-img">
-                                            <div>
-                                                <p class="student-name">Suresh Menon</p>
-                                                <p class="student-course">Python for Data Science</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carousel-item">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="testimonial-card">
-                                        <p class="review-text">"Outstanding training on Machine Learning. The hands-on labs using TensorFlow were the best part. It gave me the confidence to work on real-world AI projects."</p>
-                                        <div class="student-info">
-                                            <img src="https://i.pravatar.cc/150?img=50" alt="Student 3" class="student-img">
-                                            <div>
-                                                <p class="student-name">Kavya Reddy</p>
-                                                <p class="student-course">Machine Learning with TensorFlow</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                        <i class="fas fa-chevron-left"></i>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                        <i class="fas fa-chevron-right"></i>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5 fw-bold"><span class="neon-text">Get</span> In Touch</h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="card p-4 shadow-sm">
-                            <h4 class="mb-4">Quick Enquiry Form</h4>
-                            <form id="enquiryForm" data-form-type="Enquiry">
-                                <div class="mb-3">
-                                    <label for="enquiryName" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="enquiryName" name="Name" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="enquiryEmail" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="enquiryEmail" name="Email" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="enquiryPhone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" id="enquiryPhone" name="Phone">
-                                </div>
-                                <button type="submit" class="btn btn-neon w-100" id="enquirySubmitBtn">Submit Enquiry</button>
-                            </form>
-                            <div id="enquiryMessage" class="mt-3 text-center d-none"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="text-center py-4 mt-5">
+    <header class="hero">
         <div class="container">
-            <p>&copy; 2025 NovaAcademy. All rights reserved.</p>
-            <div>
-                <a href="#" class="text-decoration-none mx-2">Privacy Policy</a>
-                <span class="text-muted">|</span>
-                <a href="#" class="text-decoration-none mx-2">Terms of Use</a>
+            <h1 class="display-3 neon-text">Ignite Your Research Skills</h1>
+            <p class="lead mb-4">Hands-on, online workshops in advanced data analysis and software.</p>
+            <div id="search" class="mx-auto" style="max-width: 600px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search Workshop or Trainer...">
+                    <button class="btn btn-neon" type="button" id="searchBtn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <p id="searchMessage" class="text-warning mt-2" style="display:none;">
+                    ❌ No results found. Please try a different keyword.
+                </p>
             </div>
+        </div>
+    </header>
+
+    <div class="bg-dark py-2">
+        <marquee behavior="scroll" direction="left" scrollamount="6" style="color: #fff; font-size: 1.1em;">
+            🔔 Admissions Open for Next Batch! Limited Seats available. | Group discounts available. Contact us now! 🔔
+        </marquee>
+    </div>
+
+    <section class="container py-5 text-center">
+        <h2 class="neon-text mb-5">Our Impact</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="p-4 rounded" style="background:var(--card-bg);">
+                    <div class="counter" data-target="500">0+</div>
+                    <p class="text-light">Students Trained</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 rounded" style="background:var(--card-bg);">
+                    <div class="counter" data-target="100">0%</div>
+                    <p class="text-light">Satisfaction Rate</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 rounded" style="background:var(--card-bg);">
+                    <div class="counter" data-target="15">0+</div>
+                    <p class="text-light">Years of Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="workshops">
+        <h2 class="neon-text text-center mb-5">Current Workshops</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w1.png" class="card-img-top" alt="XPS Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">XPS Data Analysis Workshop</h5>
+                        <p class="text-secondary">Comprehensive XPS fundamentals, instrumentation & peak fitting.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1 Week</span>
+                            <span class="card-highlight">Fees: ₹ 2999</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('xps')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w2.png" class="card-img-top" alt="Electrochem Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Electrochemical Data Analysis</h5>
+                        <p class="text-secondary">EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1–2 Week</span>
+                            <span class="card-highlight">Fees: ₹ 2500</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('electro')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w3.png" class="card-img-top" alt="OriginPro Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">OriginPro Graphing & Data Analysis</h5>
+                        <p class="text-secondary">Peak analysis, curve fitting, batch processing & publication-ready graphs.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1 Week</span>
+                            <span class="card-highlight">Fees: ₹ 2000</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('origin')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w4.png" class="card-img-top" alt="XRD Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">XRD Data Analysis Workshop</h5>
+                        <p class="text-secondary">Rietveld refinement, peak indexing & crystal structure analysis.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1 Week</span>
+                            <span class="card-highlight">Fees: ₹ 2000</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('xrd')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w5.png" class="card-img-top" alt="ChemDraw Training">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">ChemDraw Hands-on Training</h5>
+                        <p class="text-secondary">Draw chemical structures, reactions, stereochemistry & export HD images.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1 Week</span>
+                            <span class="card-highlight">Fees: ₹ 4500</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('chemdraw')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/w6.png" class="card-img-top" alt="DWSIM Training">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">DWSIM Chemical Simulation</h5>
+                        <p class="text-secondary">Process simulation: reactors, distillation, heat exchangers & flowsheets.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Duration: 1 Week</span>
+                            <span class="card-highlight">Fees: ₹ 5000</span>
+                        </div>
+                        <button class="btn btn-neon" onclick="openDetails('dwsim')">View More Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="past-workshops" style="background:var(--bg);">
+        <h2 class="neon-text text-center mb-5">Past & Archived Workshops</h2>
+        <div class="row">
+             <div class="col-md-4 mb-4">
+                <div class="card opacity-75">
+                    <img src="https://images.unsplash.com/photo-1577561825832-b2585973950b?auto=format&fit=crop&w=400&q=60" class="card-img-top" alt="Pyrolysis Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Pyrolysis Process Optimization</h5>
+                        <p class="text-secondary">Archived. Fundamentals and software simulation for thermal processes.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Status: Closed</span>
+                        </div>
+                        <button class="btn btn-secondary disabled">Contact for Next Batch</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card opacity-75">
+                    <img src="https://images.unsplash.com/photo-1635324227092-237194f1c9c0?auto=format&fit=crop&w=400&q=60" class="card-img-top" alt="Matlab Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">MATLAB Coding for Engineers</h5>
+                        <p class="text-secondary">Archived. Basic to intermediate MATLAB scripting and plotting.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Status: Closed</span>
+                        </div>
+                        <button class="btn btn-secondary disabled">Contact for Next Batch</button>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-4 mb-4">
+                <div class="card opacity-75">
+                    <img src="https://images.unsplash.com/photo-1554460580-008f1b621575?auto=format&fit=crop&w=400&q=60" class="card-img-top" alt="Modeling Workshop">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Finite Element Modeling Basics</h5>
+                        <p class="text-secondary">Archived. Introduction to FEM using commercial software packages.</p>
+                        <div class="mb-2">
+                            <span class="card-highlight">Status: Closed</span>
+                        </div>
+                        <button class="btn btn-secondary disabled">Contact for Next Batch</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="training">
+        <h2 class="neon-text text-center mb-5">Meet Our Trainers</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="trainer-card text-center p-4 rounded">
+                    <img src="images/w1.png" class="trainer-img" alt="Dr. Alok Maurya">
+                    <h5 class="text-light mt-3">Dr. Alok Maurya</h5>
+                    <p class="text-warning">Lead Analyst & Founder</p>
+                    <p class="text-secondary">10+ years of experience in Spectroscopic & Electrochemical Analysis.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-light mx-2"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-light mx-2"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-4 mb-4">
+                <div class="trainer-card text-center p-4 rounded">
+                    <img src="images/w2.png" class="trainer-img" alt="Dr. Kavita Singh">
+                    <h5 class="text-light mt-3">Dr. Kavita Singh</h5>
+                    <p class="text-warning">Chemical Process Specialist</p>
+                    <p class="text-secondary">Expert in DWSIM simulation and optimizing industrial flowsheets.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-light mx-2"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-light mx-2"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-4 mb-4">
+                <div class="trainer-card text-center p-4 rounded">
+                    <img src="images/w3.png" class="trainer-img" alt="Er. Ramesh S.">
+                    <h5 class="text-light mt-3">Er. Ramesh S.</h5>
+                    <p class="text-warning">Materials Scientist</p>
+                    <p class="text-secondary">Specializes in XRD, Rietveld refinement, and crystal structure analysis.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-light mx-2"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-light mx-2"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+
+    <section id="reviews" class="testimonials-section py-5">
+        <div class="container">
+            <h2 class="neon-text text-center mb-5">Student Success Stories</h2>
+            
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"> 
+
+                <div class="carousel-inner">
+                    
+                    <div class="carousel-item active"> 
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="testimonial-card text-start">
+                                    <p class="review-text">"NovaAcademy ke XPS workshop ne meri understanding ko clear kar diya. Peak fitting techniques kaafi detail mein sikhayi gayi. Highly recommended for researchers!"</p>
+                                    <div class="student-info">
+                                        <img src="images/w4.png" alt="Student 1" class="student-img"> 
+                                        <div>
+                                            <p class="student-name">Rohan Sharma</p>
+                                            <p class="student-course">Research Scholar, Materials Science</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item"> 
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="testimonial-card text-start">
+                                    <p class="review-text">"Electrochemical data analysis ke liye yeh course game-changer tha. Ab main CV aur EIS data confidently analyze kar sakta hoon. Trainer kaafi supportive the."</p>
+                                    <div class="student-info">
+                                        <img src="images/w5.png" alt="Student 2" class="student-img">
+                                        <div>
+                                            <p class="student-name">Pooja Verma</p>
+                                            <p class="student-course">PhD Candidate, Chemical Engineering</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item"> 
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="testimonial-card text-start">
+                                    <p class="review-text">"OriginPro mein graphs banana mere liye pahle mushkil tha, lekin is workshop ke baad, ab main publication-ready, high-quality graphs bahut jaldi bana leta hoon."</p>
+                                    <div class="student-info">
+                                        <img src="images/w6.png" alt="Student 3" class="student-img">
+                                        <div>
+                                            <p class="student-name">Kunal Dube</p>
+                                            <p class="student-course">M.Tech Student, Electrical</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <i class="fas fa-chevron-left"></i> 
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <i class="fas fa-chevron-right"></i> 
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
+            </div>
+    </section>
+    <section class="container py-5" id="gallery">
+        <h2 class="neon-text text-center mb-5">Image Gallery</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=600&q=60" 
+                     class="img-fluid rounded"
+                     data-bs-toggle="modal" 
+                     data-bs-target="#imageModal"
+                     data-bs-image="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1200&q=80">
+            </div>
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=60" 
+                     class="img-fluid rounded"
+                     data-bs-toggle="modal" 
+                     data-bs-target="#imageModal"
+                     data-bs-image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80">
+            </div>
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=60" 
+                     class="img-fluid rounded"
+                     data-bs-toggle="modal" 
+                     data-bs-target="#imageModal"
+                     data-bs-image="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80">
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="contact">
+        <h2 class="neon-text text-center mb-5">Contact Us</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="p-4 rounded h-100" style="background:var(--card-bg);">
+                    <h4 class="text-light mb-4">Quick Enquiry</h4>
+                    <form id="enquireForm">
+                        <input type="hidden" name="formType" value="Enquiry">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="Name" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" name="Email" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" name="Phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="enquiryWorkshop" name="workshop_Registered" required>
+                                <option value="" disabled selected>Interested Workshop</option>
+                                <option value="XPS Data Analysis Workshop">XPS Data Analysis Workshop</option>
+                                <option value="Electrochemical Data Analysis">Electrochemical Data Analysis</option>
+                                <option value="OriginPro Graphing & Data Analysis">OriginPro Graphing & Data Analysis</option>
+                                <option value="XRD Data Analysis Workshop">XRD Data Analysis Workshop</option>
+                                <option value="ChemDraw Hands-on Training">ChemDraw Hands-on Training</option>
+                                <option value="DWSIM Chemical Simulation">DWSIM Chemical Simulation</option>
+                                <option value="General Query">General Query</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-neon w-100" id="enquireSubmitBtn">Submit Enquiry</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 rounded h-100" style="background:var(--card-bg);">
+                    <h4 class="text-light mb-4">General Information</h4>
+                    <p class="text-secondary"><i class="fas fa-map-marker-alt text-neon me-2"></i> Online & Remote Training</p>
+                    <p class="text-secondary"><i class="fas fa-envelope text-neon me-2"></i> info@novaacademy.com</p>
+                    <p class="text-secondary"><i class="fas fa-phone-alt text-neon me-2"></i> +91 95981 83089</p>
+                    
+                    <h5 class="text-light mt-4">Follow Us</h5>
+                    <div class="social-icons fs-3">
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Nova Academy. All Rights Reserved. | Designed by [Your Name/Company]</p>
+            <p class="mt-2"><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </div>
     </footer>
 
-    <div class="modal fade" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="enquiryModalLabel">General Enquiry</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <button id="scrollToTopBtn" class="scroll-to-top btn btn-light"><i class="fas fa-arrow-up"></i></button>
+
+    <a href="https://wa.me/919598183089?text=Hello%20Nova%20Academy%2C%20I%20have%20a%20query%20regarding%20workshops." target="_blank" style="position:fixed; bottom: 80px; right:20px; z-index:9999; background:#25d366; color:#fff; width:55px; height:55px; border-radius:50%; text-align:center; line-height:55px; font-size:2rem; box-shadow:0 0 15px rgba(37,211,102,0.8);">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="position-fixed w-100 py-2 text-center" id="stickyFooterAlert" style="bottom:0; left:0; background:#001a66; color:var(--neon); font-size:20px; font-weight:600; box-shadow:0 0 15px var(--neon); z-index:9998;">
+        📢 Need Help? 
+        <a href="#contact" class="btn btn-neon ms-3 px-4 py-1">Enquire Now</a>
+        <button class="btn-close btn-close-white ms-3" aria-label="Close" onclick="document.getElementById('stickyFooterAlert').style.display='none';" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></button>
+    </div>
+
+    <div class="popup-overlay" id="workshopInfo">
+        <div class="popup-box">
+            <button class="btn-close btn-close-white position-absolute top-0 end-0 m-3" onclick="closeDetails()"></button>
+            <div class="row">
+                <div class="col-md-6">
+                    <img id="workshopImg" class="popup-img" src="" alt="Workshop Image">
+                    <h3 id="workshopTitle" class="neon-text mb-3">Workshop Title</h3>
+                    <p class="text-secondary" style="white-space: pre-wrap;" id="workshopDesc"></p>
+                    <a id="syllabusBtn" href="#" target="_blank" class="btn btn-warning mb-3 w-100">Download Detailed Syllabus (PDF)</a>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-neon flex-fill" onclick="closeDetails(); openPopup('registerPopup')">Register Now</button>
+                        <a id="popupWhatsappBtn" target="_blank" class="btn btn-success flex-fill"><i class="fab fa-whatsapp me-2"></i> WhatsApp Query</a>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="modalEnquiryForm" data-form-type="Enquiry">
-                        <div class="mb-3">
-                            <label for="modalEnquiryName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="modalEnquiryName" name="Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalEnquiryEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="modalEnquiryEmail" name="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modalEnquiryPhone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="modalEnquiryPhone" name="Phone">
-                        </div>
-                        <button type="submit" class="btn btn-neon w-100" id="modalEnquirySubmitBtn">Submit Enquiry</button>
-                    </form>
-                    <div id="modalEnquiryMessage" class="mt-3 text-center d-none"></div>
+                <div class="col-md-6">
+                    <h5 class="text-light mt-3 mt-md-0">What You Will Learn:</h5>
+                    <ul class="text-secondary">
+                        <li>In-depth theoretical concepts & practical hands-on examples.</li>
+                        <li>Real-time data sets for analysis and practice.</li>
+                        <li>Q&A sessions with expert trainers.</li>
+                        <li>Certificate of Completion provided.</li>
+                    </ul>
+                    <h5 class="text-light mt-3">Why Nova Academy?</h5>
+                    <p class="text-secondary">We focus on practical, industry-relevant skills that bridge the gap between academia and application.</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registrationModalLabel">Register for: <span id="workshopTitle"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="popup-overlay" id="registerPopup">
+        <div class="popup-box">
+            <button class="btn-close btn-close-white position-absolute top-0 end-0 m-3" onclick="closePopup('registerPopup')"></button>
+            <h3 class="neon-text text-center mb-4">Registration Form</h3>
+            <div class="payment-details-box p-3 mb-4 rounded" style="background-color: #1a1a1a; border: 1px solid var(--neon);">
+    <h5 class="text-light mb-3">💰 1. Payment Details</h5>
+    <div class="row align-items-center">
+        <div class="col-md-5 text-center">
+            <img src="images/upi_qr_code.png" alt="UPI QR Code" class="img-fluid rounded" style="max-width: 150px; border: 2px solid #fff;">
+            <small class="d-block text-secondary mt-1">Scan to Pay (Recommended)</small>
+        </div>
+        <div class="col-md-7">
+            <p class="text-warning mb-1">
+                <i class="fas fa-hand-point-right me-2"></i> **UPI ID:** <span style="font-weight: 700;">novaacademy@upi</span>
+            </p>
+            <p class="text-secondary mb-1">
+                <i class="fas fa-bank me-2"></i> **Bank A/C:** XXXXXX
+            </p>
+            <p class="text-secondary mb-0">
+                <i class="fas fa-user me-2"></i> **Beneficiary:** Nova Academy
+            </p>
+        </div>
+    </div>
+    <hr style="border-color: #333;">
+    <h5 class="text-light mb-3">📝 2. Registration Form</h5>
+</div>
+            <form id="registerForm">
+                <input type="hidden" name="formType" value="Registration">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="Name" placeholder="Full Name" required>
                 </div>
-                <div class="modal-body">
-                    <form id="registrationForm" data-form-type="Registration">
-                        <input type="hidden" id="workshopRegistered" name="workshop_Registered">
-                        
-                        <div class="mb-3">
-                            <label for="regName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="regName" name="Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="regEmail" name="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regPhone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="regPhone" name="Phone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regUTR" class="form-label">UTR/Transaction ID (Payment Proof)</label>
-                            <input type="text" class="form-control" id="regUTR" name="UTR_ID" required>
-                            <div class="form-text">Please ensure you have completed the payment before submitting.</div>
-                        </div>
-
-                        <button type="submit" class="btn btn-neon w-100" id="regSubmitBtn">Complete Registration</button>
-                    </form>
-                    <div id="registrationMessage" class="mt-3 text-center d-none"></div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="Email" placeholder="Email Address" required>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <input type="tel" class="form-control" name="Phone" placeholder="WhatsApp Phone Number" required>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" id="regWorkshop" name="workshop_Registered" required>
+                        <option value="" disabled selected>Select Workshop to Register</option>
+                        <option value="XPS Data Analysis Workshop">XPS Data Analysis Workshop (₹ 2999)</option>
+                        <option value="Electrochemical Data Analysis">Electrochemical Data Analysis (₹ 2500)</option>
+                        <option value="OriginPro Graphing & Data Analysis">OriginPro Graphing & Data Analysis (₹ 2000)</option>
+                        <option value="XRD Data Analysis Workshop">XRD Data Analysis Workshop (₹ 2000)</option>
+                        <option value="ChemDraw Hands-on Training">ChemDraw Hands-on Training (₹ 4500)</option>
+                        <option value="DWSIM Chemical Simulation">DWSIM Chemical Simulation (₹ 5000)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-light">Payment Details (UPI/Bank Transfer)</label>
+                    <input type="text" class="form-control" name="UTR_ID" placeholder="UTR/Transaction ID" required>
+                    <small class="text-secondary">Please enter the UPI or Bank Transfer UTR ID for verification.</small>
+                </div>
+                <p class="text-center text-warning">
+                    *Complete your payment before submitting this form to confirm your seat.*
+                </p>
+                <button type="submit" class="btn btn-neon w-100" id="registerSubmitBtn">Submit Registration & Payment</button>
+            </form>
         </div>
     </div>
 
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content bg-transparent border-0">
                 <div class="modal-body p-0">
-                    <img src="" id="fullImage" class="img-fluid" alt="Full Image" style="width: 100%; height: auto; object-fit: contain;">
+                    <img id="modalImage" src="" alt="Gallery Image" class="img-fluid rounded">
                 </div>
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         </div>
     </div>
 
-
-    <a href="#hero" class="scroll-to-top"><i class="fas fa-chevron-up"></i></a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
