@@ -302,32 +302,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    // --- 1. Enquiry Form Submission Logic ---
-    handleFormSubmission(
-        'enquireForm',
-        'enquireSubmitBtn',
-        '✅ Enquiry Submitted! We will contact you shortly.',
-        (formData) => {
+    // --- 1. Enquiry Form Submission Logic (COMPLETE & CORRECTED) ---
+handleFormSubmission(
+    'enquireForm',
+    'enquireSubmitBtn',
+    '✅ Enquiry Submitted! We will contact you shortly.',
+    // फॉर्म सबमिशन सफल होने पर यह क्लोजिंग फंक्शन (closeFn) एग्जीक्यूट होगा,
+    // और 'data' ऑब्जेक्ट को यहां पैरामीटर के रूप में प्राप्त करेगा।
+    (data) => { 
+        // WhatsApp मैसेज के लिए डेटा ऑब्जेक्ट से जानकारी निकालें
+        const msg =
+            "Hello Nova Academy 👋\n" +
+            "📩 New Enquiry\n" +
+            "👤 Name: " + data.Name + "\n" +
+            "📧 Email: " + data.Email + "\n" +
+            "📱 Phone: " + data.Phone + "\n" +
+            "🎯 Workshop: " + data.workshop_Registered;
 
-    const msg =
-        "Hello Nova Academy 👋\n" +
-        "📩 New Enquiry\n" +
-        "👤 Name: " + formData.Name + "\n" +
-        "📧 Email: " + formData.Email + "\n" +
-        "📱 Phone: " + formData.Phone + "\n" +
-        // Corrected: Use the unified key
-        "🎯 Workshop: " + formData.workshop_Registered; 
-
-    setTimeout(() => {
-        if (confirm("Form submit ho gaya hai ✅\nKya aap WhatsApp par enquiry bhejna chahte ho?")) {
-            window.open(
-                "https://wa.me/919598183089?text=" + encodeURIComponent(msg),
-                "_blank"
-            );
-        }
-    }, 1000);
-}
-    );
+        // 1 सेकंड के विलंब के बाद उपयोगकर्ता को WhatsApp पर भेजने का प्रॉम्प्ट दें
+        setTimeout(() => {
+            // कंफर्मेशन प्रॉम्प्ट (Confirmation Prompt)
+            if (confirm("फॉर्म सबमिट हो गया है ✅\nक्या आप यह Enquiry WhatsApp पर भेजना चाहते हैं ताकि हम तुरंत प्रतिक्रिया दे सकें?")) {
+                // Nova Academy के WhatsApp नंबर पर मैसेज भेजें
+                window.open(
+                    "https://wa.me/919598183089?text=" + encodeURIComponent(msg),
+                    "_blank"
+                );
+            }
+            // यदि फॉर्म पॉपअप में था, तो उसे बंद करें (हालांकि यह 'contact' सेक्शन में है, 
+            // फिर भी अगर आप इसे भविष्य में पॉपअप में उपयोग करें तो यह सही रहेगा)
+            // closePopup('enquirePopupId'); // (अगर पॉपअप का उपयोग हो रहा हो)
+        }, 1000);
+    }
+);
 
     // --- 2. Registration Form Submission Logic ---
     handleFormSubmission(
