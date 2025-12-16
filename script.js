@@ -4,7 +4,7 @@
 // ⚠️ सेटअप आवश्यक (SETUP REQUIRED) 
 // =========================================================================
 // 1. Google Apps Script Deployment URL (Replace with your actual URL)
-const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL_HERE'; 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaNOLieWvfDZE8fLZ0HxHMeM0MjbSl_2PrEZefb_3ieyZO3Hfd-0QEUbszaSVpHE0WMg/exec'; 
 
 // 2. Secret API Key (MUST match the Key used in your Apps Script code!)
 const API_KEY = "vand_nkp@2025"; // <--- Replace with your actual SECRET_API_KEY
