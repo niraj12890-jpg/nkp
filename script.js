@@ -26,14 +26,11 @@ document.getElementById('searchBtn').addEventListener('click', function(){
     all.forEach(item => {
         const text = item.innerText.toLowerCase();
         const match = text.includes(q);
-        
         item.style.display = match ? '' : 'none';
-        
         if (match) resultsFound++;
     });
     
-    if (resultsFound > 0) searchMessage.style.display = 'none';
-    else searchMessage.style.display = 'block';
+    searchMessage.style.display = (resultsFound > 0) ? 'none' : 'block';
 });
 
 document.getElementById('searchInput').addEventListener('keypress', function(e){
@@ -52,18 +49,14 @@ function closePopup(id){
 window.openPopup = openPopup;
 window.closePopup = closePopup;
 
-// ---------- Scroll To Top Logic ----------
+// ---------- Scroll To Top ----------
 const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 300) scrollToTopBtn.classList.add('show');
     else scrollToTopBtn.classList.remove('show');
 });
-
 scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ---------- Workshop detailed data ----------
@@ -85,7 +78,6 @@ function openDetails(key){
     document.getElementById('workshopDesc').innerText = data.desc;
     document.getElementById('syllabusBtn').href = data.pdf || '#';
     document.getElementById('workshopInfo').style.display = 'flex';
-
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
@@ -158,28 +150,29 @@ function sendRegistrationWhatsapp(data) {
     window.open(whatsappUrl, '_blank');
 }
 
-// DOMContentLoaded: Form Submission Logic, Counters & Lightbox
+// ---------- DOMContentLoaded ----------
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ---------- Gallery Modal Fix ----------
-    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(img => {
-        img.addEventListener('click', () => {
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = img.dataset.bsImage;
+    // Gallery modal logic
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const imageUrl = button.getAttribute('data-bs-image');
+            const modalImage = imageModal.querySelector('#modalImage');
+            modalImage.src = imageUrl;
         });
-    });
+    }
 
-    // ---------- Counter Animation ----------
+    // Counters logic
     const counters = document.querySelectorAll('.counter');
     const speed = 200;
-
     counters.forEach(counter => {
         const updateCount = () => {
             const target = +counter.getAttribute('data-target');
             const currentText = counter.innerText;
             const count = +currentText.replace('%', '').replace('+', '');
             const increment = target / speed;
-
             if (count < target) {
                 counter.innerText = Math.ceil(count + increment) 
                     + (currentText.includes('%') ? '%' : '') 
@@ -202,12 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(counter);
     });
 
-    // ---------- Forms ----------
+    // Form submission handler
     const handleFormSubmission = (formId, submitBtnId, successMessage, closeFn) => {
         const form = document.getElementById(formId);
         const submitBtn = document.getElementById(submitBtnId);
         const formType = (formId === 'registerForm') ? 'Registration' : 'Enquiry';
-
         if (!form || !GOOGLE_SHEET_URL.startsWith('http')) return;
 
         form.addEventListener('submit', async function (e) {
@@ -216,20 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let isValid = true;
             form.querySelectorAll('[required]').forEach(input => {
                 input.classList.remove('is-invalid');
-                if (!input.value.trim()) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
-                if (input.type === 'email' && !input.value.includes('@')) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
+                if (!input.value.trim()) { input.classList.add('is-invalid'); isValid = false; }
+                if (input.type === 'email' && !input.value.includes('@')) { input.classList.add('is-invalid'); isValid = false; }
             });
 
-            if (!isValid) {
-                alert('⚠️ Please fill all required fields correctly.');
-                return;
-            }
+            if (!isValid) { alert('⚠️ Please fill all required fields correctly.'); return; }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
@@ -237,31 +220,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             const data = {};
             formData.forEach((v, k) => (data[k] = v));
-
             data.API_KEY = SECRET_API_KEY;
             data.formType = formType;
 
             try {
                 const response = await fetch(GOOGLE_SHEET_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
                     body: new URLSearchParams(data).toString()
                 });
-
                 const result = await response.json();
 
                 if (result.result === 'success') {
-                    let msg = successMessage;
                     if (formId === 'registerForm') {
-                        msg = msg.replace('UTR_PLACEHOLDER', data.UTR_ID || 'N/A');
                         sendRegistrationWhatsapp(data);
+                        closeFn(data);
+                        alert(successMessage.replace('UTR_PLACEHOLDER', data.UTR_ID || 'N/A'));
+                    } else {
+                        const msg =
+                            `Hello Nova Academy 👋\n📩 New Enquiry\n👤 Name: ${data.Name}\n📧 Email: ${data.Email}\n📱 Phone: ${data.Phone}\n🎯 Workshop: ${data.workshop_Registered}`;
+                        window.open('https://wa.me/919598183089?text=' + encodeURIComponent(msg), '_blank');
+                        alert(successMessage);
+                        closeFn(data);
                     }
-
-                    alert(msg);
                     form.reset();
-                    closeFn(data);
                 } else alert('❌ Submission failed: ' + result.message);
 
             } catch (err) {
@@ -269,44 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('❌ Network / Server error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 
-                    (formId === 'enquireForm')
-                    ? 'Submit Enquiry'
-                    : 'Submit Registration & Payment';
+                submitBtn.textContent = (formId === 'enquireForm') ? 'Submit Enquiry' : 'Submit Registration & Payment';
             }
         });
     };
 
-    handleFormSubmission(
-        'enquireForm',
-        'enquireSubmitBtn',
-        '✅ Enquiry Submitted! We will contact you shortly.',
-        (data) => {
-            const msg =
-                `Hello Nova Academy 👋
-📩 New Enquiry
-👤 Name: ${data.Name}
-📧 Email: ${data.Email}
-📱 Phone: ${data.Phone}
-🎯 Workshop: ${data.workshop_Registered}`;
+    handleFormSubmission('enquireForm','enquireSubmitBtn','✅ Enquiry Submitted! We will contact you shortly.', (data) => {});
+    handleFormSubmission('registerForm','registerSubmitBtn','🎉 Registration Successful! Verification underway (UTR: UTR_PLACEHOLDER).', (data) => { closePopup('registerPopup'); });
 
-            setTimeout(() => {
-                if (confirm('WhatsApp पर enquiry भेजनी है?')) {
-                    window.open(
-                        'https://wa.me/919598183089?text=' + encodeURIComponent(msg),
-                        '_blank'
-                    );
-                }
-            }, 800);
-        }
-    );
-
-    handleFormSubmission(
-        'registerForm',
-        'registerSubmitBtn',
-        '🎉 Registration Successful! Verification underway (UTR: UTR_PLACEHOLDER).',
-        (data) => {
-            closePopup('registerPopup');
-        }
-    );
 });
