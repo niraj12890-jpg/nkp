@@ -215,7 +215,7 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--bg); /* White background for popup */
     width: 100%;
     /* CHANGED: Popup ki max-width ko aur bada kiya (1000px se 1200px) */
-    max-width: 800px; 
+    max-width: 1200px; 
     max-height: 92vh;
     overflow-y: auto;
     border: 2px solid var(--neon); 
@@ -234,30 +234,28 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 360px;
 }
 /* CHANGED: Close button (X) ka color red kiya gaya */
-/* CHANGED: Close button (X) ka color red kiya gaya */
 .popup-box .btn-close {
     background: transparent;
     opacity: 1;
-    font-size: 1.5rem;
+    color: var(--red-close); /* Red color variable use kiya */
+    font-size: 1.5rem; /* Icon size badhaya */
     font-weight: bold;
-    transition: 0.2s;
-    /* FIX: SVG Icon ko seedhe red (#dc3545) se fill karke override kiya gaya */
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23dc3545'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") !important;
+    filter: none;
+    transition: color 0.2s;
 }
-
 .popup-box .btn-close:hover {
-    opacity: 0.7;
+    color: #ff0000;
 }
-
-/* White close button class ko override kiya, ab red dikhega */
+/* White close button ko override kiya, ab red dikhega */
 .btn-close-white {
-    /* Is class ko ab khaali chhod sakte hain, ya sirf zaroori override rakhein */
-    filter: none !important; 
-    opacity: 1 !important;
+    filter: invert(1); /* Invert filter ko remove kiya ya adjust kiya */
+    color: var(--red-close) !important; 
 }
 .btn-close-white:focus {
     box-shadow: 0 0 0 0.25rem rgba(255, 71, 87, 0.4);
 }
+
+
 /* ---------- Gallery Image Styles ---------- */
 #gallery img {
     cursor: pointer;
