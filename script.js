@@ -1,6 +1,9 @@
 // Ensure this is your deployed Web App URL from Google Apps Script
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwaNOLieWvfDZE8fLZ0HxHMeM0MjbSl_2PrEZefb_3ieyZO3Hfd-0QEUbszaSVpHE0WMg/exec';
 
+// 🛡️ SECURITY KEY (Must match the one in Google Apps Script)
+const SECRET_API_KEY = "vand_nkp@2025";
+
 // ---------- Search logic (Updated with UX improvement) ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -255,9 +258,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Add loading spinner for modern UX
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
 
+                c// --- Utility function for form handling (Refactored for cleaner code) ---
+    const handleFormSubmission = (formId, submitBtnId, successMessage, closeFn) => {
+        const form = document.getElementById(formId);
+        const submitBtn = document.getElementById(submitBtnId);
+
+        // Determine the form type based on its ID
+        const formType = (formId === 'registerForm') ? 'Registration' : 'Enquiry'; // <--- NEW
+
+        if (form && GOOGLE_SHEET_URL.startsWith('http')) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                // ... [validation logic remains the same] ...
+                
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+
                 const formData = new FormData(this);
                 const data = {};
                 formData.forEach((value, key) => (data[key] = value));
+                
+                // 🔑 API Key और Form Type जोड़ना (यह Google Apps Script की सुरक्षा के लिए आवश्यक है)
+                data['API_KEY'] = SECRET_API_KEY; 
+                data['formType'] = formType; // 'Registration' or 'Enquiry' 
+                // ____________________________________________________________________
+                
+                // ... [Rest of the submission logic remains the same] ...
                 
                 // IMPORTANT: Ensure the form data sent contains the correct key for workshop name
                 // The key is assumed to be 'workshop_Registered' for both forms now.
