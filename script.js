@@ -7,7 +7,7 @@
 const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_DEPLOYMENT_URL_HERE'; 
 
 // 2. Secret API Key (MUST match the Key used in your Apps Script code!)
-const API_KEY = "NovaSec2025!"; // <--- Replace with your actual SECRET_API_KEY
+const API_KEY = "vand_nkp@2025"; // <--- Replace with your actual SECRET_API_KEY
 // =========================================================================
 
 document.addEventListener('DOMContentLoaded', function () {
