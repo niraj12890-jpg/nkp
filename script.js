@@ -4,7 +4,7 @@ const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwaNOLieWvfDZE
 // 🛡️ SECURITY KEY (Must match the one in Google Apps Script)
 const SECRET_API_KEY = "vand_nkp@2025";
 
-// ---------- Search logic (Updated with UX improvement) ----------
+// ---------- Search logic ----------
 document.getElementById('searchBtn').addEventListener('click', function(){
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
     const searchMessage = document.getElementById('searchMessage'); 
@@ -66,7 +66,7 @@ scrollToTopBtn.addEventListener('click', () => {
     });
 });
 
-// ---------- Workshop detailed data (FINAL & CORRECTED) ----------
+// ---------- Workshop detailed data ----------
 const workshopData = {
     xps: { title:"XPS Data Analysis Workshop", img:"images/w1.png", pdf:"#", desc:"Comprehensive XPS fundamentals, instrumentation & peak fitting with hands-on datasets.\n\nDuration: 1 Week\nMode: Online\nFees: ₹ 2999." },
     electro: { title:"Electrochemical Data Analysis", img:"images/w2.png", pdf:"#", desc:"EIS, CV, LSV, GCD, Nyquist & case studies for batteries & catalysis.\n\nDuration: 1–2 Week\nMode: Online\nFees: ₹ 2500." }, 
@@ -161,16 +161,15 @@ function sendRegistrationWhatsapp(data) {
 // DOMContentLoaded: Form Submission Logic, Counters & Lightbox
 document.addEventListener('DOMContentLoaded', () => {
 
-    const imageModal = document.getElementById('imageModal');
-    if (imageModal) {
-        imageModal.addEventListener('show.bs.modal', event => {
-            const button = event.relatedTarget;
-            const imageUrl = button.getAttribute('data-bs-image');
-            const modalImage = imageModal.querySelector('#modalImage');
-            modalImage.src = imageUrl;
+    // ---------- Gallery Modal Fix ----------
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(img => {
+        img.addEventListener('click', () => {
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = img.dataset.bsImage;
         });
-    }
+    });
 
+    // ---------- Counter Animation ----------
     const counters = document.querySelectorAll('.counter');
     const speed = 200;
 
@@ -203,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(counter);
     });
 
+    // ---------- Forms ----------
     const handleFormSubmission = (formId, submitBtnId, successMessage, closeFn) => {
         const form = document.getElementById(formId);
         const submitBtn = document.getElementById(submitBtnId);
