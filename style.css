@@ -351,28 +351,14 @@ footer a:hover { color: var(--neon); }
 }
 /* ---------- Scroll to Top Button ---------- */
 .scroll-to-top {
+    display: none;
     position: fixed;
-    bottom: 140px; 
+    bottom: 20px;
     right: 20px;
-    background: var(--neon); 
-    color: #fff; 
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 45px;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease-in-out;
+    z-index: 999;
 }
 .scroll-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-5px);
+    display: block;
 }
 /* ---------- Testimonials (Student Review) Styles (CAROUSEL & NAVIGATION) ---------- */
 
